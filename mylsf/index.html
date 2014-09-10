@@ -51,7 +51,42 @@
       </div>
     </div>
     <div class='app-body'>
-      <ng-view class='app-content'></ng-view>
+      <ng-view class='app-content'>
+        <div class='search-bar'>
+          <label for='search'>Bitte gib einen Studiengang oder eine Veranstaltung an!</label>
+          <input id='search' type='search'>
+        </div>
+        <div class='results'>
+          <ul>
+            <li>Analysis</li>
+            <li>Geometrie</li>
+            <li>Höhere Mathematik II</li>
+            <li>Informatik</li>
+            <li>Luft- und Raumfahrttechnik</li>
+          </ul>
+        </div>
+        <div class='details'>
+          <ol>
+            <li>Vorlesung Analysis</li>
+            <li>
+              V.57.01
+              <a href='http://maps.google.de/' title='Position in Google Maps'>Wo ist das?</a>
+            </li>
+            <li>Prof. TeknD Weidl</li>
+            <li>
+              <a href='uebungen/ws2015/analysis1/'>Übung Analysis 1</a>
+            </li>
+            <li>
+              Mo,
+              <time datetime='2014-09-15T09:45'>9:45 Uhr</time>
+              bis
+              <time datetime='2014-09-15T11:15'>11:15 Uhr</time>
+              <span class='star'>In den Kalender übernehmen</span>
+              <span class='bookmark'>Diese Veranstaltung merken</span>
+            </li>
+          </ol>
+        </div>
+      </ng-view>
     </div>
     <script src='../bower_components/angular/angular.min.js'></script>
     <script src='../bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.min.js'></script>

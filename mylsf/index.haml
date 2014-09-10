@@ -36,5 +36,31 @@
 
     .app-body
       %ng-view.app-content
+        .search-bar
+          %label{:for => 'search'} Bitte gib einen Studiengang oder eine Veranstaltung an!
+          %input#search{:type => 'search'}
+        .results
+          %ul
+            %li Analysis
+            %li Geometrie
+            %li Höhere Mathematik II
+            %li Informatik
+            %li Luft- und Raumfahrttechnik
+        .details
+          %ol
+            %li Vorlesung Analysis
+            %li 
+              V.57.01
+              %a{:href => 'http://maps.google.de/', :title => 'Position in Google Maps'} Wo ist das?
+            %li Prof. TeknD Weidl
+            %li
+              %a{:href => 'uebungen/ws2015/analysis1/'} Übung Analysis 1
+            %li 
+              Mo, 
+              %time{:datetime => '2014-09-15T09:45'}9:45 Uhr
+              bis
+              %time{:datetime => '2014-09-15T11:15'}11:15 Uhr
+              %span.star In den Kalender übernehmen
+              %span.bookmark Diese Veranstaltung merken
     %script{:src => '../bower_components/angular/angular.min.js'}
     %script{:src => '../bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.min.js'}
