@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang='de'>
+  <head>
+    <meta charset='utf-8'>
+    <title>Forschungstabelle</title>
+    <style>
+      #add {
+        float: right;
+        color: yellow;
+        background-color: darkgreen;
+        border: 1px solid black;
+      }
+      
+      table, table th, table td {
+        border: 1px solid black;
+      }
+      
+      tr .civil {
+        background-color: green;
+      }
+      
+      tr .military {
+        background-color: brown;
+      }
+      
+      tr .mark {
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    Schlacht Um Kyoto
+    <div id='add'>+</div>
+    <table id='research'>
+      <tr>
+        <th>Nickname</th>
+        <th>Gilde</th>
+        <th class='civil'>Verwaltung</th>
+        <th class='civil'>Staatswesen</th>
+        <th class='civil'>Feudalismus</th>
+        <th class='civil'>Spionage</th>
+        <th class='civil'>Forstwirtschaft</th>
+        <th class='civil'>Stollenbau</th>
+        <th class='civil'>Braukunst</th>
+        <th class='civil'>Feldwirtschaft</th>
+        <th class='military'>Yari</th>
+        <th class='military'>Katana</th>
+        <th class='military'>Naginata</th>
+        <th class='military'>Arkebuse</th>
+        <th class='military'>Yumi</th>
+        <th class='military'>Ashigaru-Rüstung</th>
+        <th class='military'>Samurai-Rüstung</th>
+        <th class='military'>Entermesser</th>
+        <th class='military'>Muskete</th>
+        <th class='military'>Kanone</th>
+      </tr>
+    </table>
+    <script>
+      var add = document.querySelector('#add');
+      var res = document.querySelector('#research');
+      
+      add.addEventListener('click', function() {
+        var tr = document.createElement('tr');
+        var td;
+      
+        td = document.createElement('td');
+        td.appendChild(document.createTextNode('User'));
+        tr.appendChild(td);
+      
+        td = document.createElement('td');
+        td.appendChild(document.createTextNode('Guild'));
+        tr.appendChild(td);
+      
+        for (var i = 0; i < 8; i++) {
+          td = document.createElement('td');
+          td.appendChild(document.createTextNode('0'));
+          td.classList.add('civil');
+          tr.appendChild(td);
+        }
+      
+        for (var i = 0; i < 10; i++) {
+          td = document.createElement('td');
+          td.appendChild(document.createTextNode('0'));
+          td.classList.add('military');
+          tr.appendChild(td);
+        }
+      
+        res.appendChild(tr);
+      }, false);
+      
+      research.addEventListener('click', function(e) {
+        var cell = e.target;
+        console.log(cell, cell.nodeName);
+        if (cell.nodeName !== 'TH') {
+          cell.classList.toggle('mark');
+        }
+      }, false);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,95 @@
+!!! 5
+%html{:lang => :de}
+  %head
+    %meta{:charset => 'utf-8'}
+    %title Forschungstabelle
+    :css
+      #add {
+        float: right;
+        color: yellow;
+        background-color: darkgreen;
+        border: 1px solid black;
+      }
+
+      table, table th, table td {
+        border: 1px solid black;
+      }
+
+      tr .civil {
+        background-color: green;
+      }
+
+      tr .military {
+        background-color: brown;
+      }
+
+      tr .mark {
+        background-color: red;
+      }
+
+  %body
+    Schlacht Um Kyoto
+    #add +
+    %table#research
+      %tr
+        %th Nickname
+        %th Gilde
+        %th.civil Verwaltung
+        %th.civil Staatswesen
+        %th.civil Feudalismus
+        %th.civil Spionage
+        %th.civil Forstwirtschaft
+        %th.civil Stollenbau
+        %th.civil Braukunst
+        %th.civil Feldwirtschaft
+        %th.military Yari
+        %th.military Katana
+        %th.military Naginata
+        %th.military Arkebuse
+        %th.military Yumi
+        %th.military Ashigaru-Rüstung
+        %th.military Samurai-Rüstung
+        %th.military Entermesser
+        %th.military Muskete
+        %th.military Kanone
+
+    :javascript
+      var add = document.querySelector('#add');
+      var res = document.querySelector('#research');
+
+      add.addEventListener('click', function() {
+        var tr = document.createElement('tr');
+        var td;
+
+        td = document.createElement('td');
+        td.appendChild(document.createTextNode('User'));
+        tr.appendChild(td);
+
+        td = document.createElement('td');
+        td.appendChild(document.createTextNode('Guild'));
+        tr.appendChild(td);
+
+        for (var i = 0; i < 8; i++) {
+          td = document.createElement('td');
+          td.appendChild(document.createTextNode('0'));
+          td.classList.add('civil');
+          tr.appendChild(td);
+        }
+
+        for (var i = 0; i < 10; i++) {
+          td = document.createElement('td');
+          td.appendChild(document.createTextNode('0'));
+          td.classList.add('military');
+          tr.appendChild(td);
+        }
+
+        res.appendChild(tr);
+      }, false);
+
+      research.addEventListener('click', function(e) {
+        var cell = e.target;
+        console.log(cell, cell.nodeName);
+        if (cell.nodeName !== 'TH') {
+          cell.classList.toggle('mark');
+        }
+      }, false);
