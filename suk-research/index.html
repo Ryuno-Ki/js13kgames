@@ -57,37 +57,36 @@
       </tr>
     </table>
     <script>
-      var add = document.querySelector('#add');
-      var res = document.querySelector('#research');
+      var appendRow = function() {
+        var res = document.querySelector('#research');
       
-      add.addEventListener('click', function() {
-        var tr = document.createElement('tr');
-        var td;
+          var tr = document.createElement('tr');
+          var td;
       
-        td = document.createElement('td');
-        td.appendChild(document.createTextNode('User'));
-        tr.appendChild(td);
-      
-        td = document.createElement('td');
-        td.appendChild(document.createTextNode('Guild'));
-        tr.appendChild(td);
-      
-        for (var i = 0; i < 8; i++) {
           td = document.createElement('td');
-          td.appendChild(document.createTextNode('0'));
-          td.classList.add('civil');
+          td.appendChild(document.createTextNode('User'));
           tr.appendChild(td);
-        }
       
-        for (var i = 0; i < 10; i++) {
           td = document.createElement('td');
-          td.appendChild(document.createTextNode('0'));
-          td.classList.add('military');
+          td.appendChild(document.createTextNode('Guild'));
           tr.appendChild(td);
-        }
       
-        res.appendChild(tr);
-      }, false);
+          for (var i = 0; i < 8; i++) {
+            td = document.createElement('td');
+            td.appendChild(document.createTextNode('0'));
+            td.classList.add('civil');
+            tr.appendChild(td);
+          }
+      
+          for (var i = 0; i < 10; i++) {
+            td = document.createElement('td');
+            td.appendChild(document.createTextNode('0'));
+            td.classList.add('military');
+            tr.appendChild(td);
+          }
+      
+          res.appendChild(tr);
+      };
     </script>
     <script>
       var res = document.querySelector('#research');
@@ -95,6 +94,7 @@
         var cell = e.target;
         if (cell.nodeName === 'TD') {
           cell.classList.toggle('mark');
+      
           var val = cell.textContent;
           cell.textContent = '';
           var input = document.createElement('input');
@@ -105,17 +105,88 @@
             var kc = e.keyCode || e.which;
             if (kc == '13') {
               cell.textContent = this.value;
+              updateStorage();
               this.parentNode.removeChild(this);
             }
           }, false);
           cell.appendChild(input);
         }
       }, false);
+      
+      var updateStorage = function() {
+        var trs = res.querySelectorAll('tr');
+        var store = {};
+        for (tr in trs) {
+          if (trs[tr].nodeName === 'TR' && trs[tr].firstChild.nodeName === 'TD') {
+            tds = trs[tr].childNodes;
+            store[tr] = {
+              nickname: tds[0].textContent,
+              guild: tds[1].textContent,
+              administration: tds[2].textContent,
+              politicalSystem: tds[3].textContent,
+              feudalism: tds[4].textContent,
+              espionage: tds[5].textContent,
+              forestry: tds[6].textContent,
+              galleryConstruction: tds[7].textContent,
+              artOfBrewing: tds[8].textContent,
+              agriculture: tds[9].textContent,
+              yari: tds[10].textContent,
+              katana: tds[11].textContent,
+              naginata: tds[12].textContent,
+              arkebuse: tds[13].textContent,
+              yumi: tds[14].textContent,
+              ashigaru: tds[15].textContent,
+              samurai: tds[16].textContent,
+              cutlass: tds[17].textContent,
+              musket: tds[18].textContent,
+              cannon: tds[19].textContent
+            };
+          }
+        }
+        window.sessionStorage.setItem('data', JSON.stringify(store));
+      };
+    </script>
+    <script>
+      var add = document.querySelector('#add');
+      add.addEventListener('click', appendRow, false);
+    </script>
+    <script>
+      var res = document.querySelector('#research');
+      var data = JSON.parse(window.sessionStorage.getItem('data'));
+      var row;
+      var rows = Object.keys(data).length;
+      for (nRows = 0; nRows < rows; nRows++) {
+        appendRow();
+        row = res.lastChild;
+        dataRow = data[(nRows+1)];
+        row.children[0].textContent = dataRow.nickname;
+        row.children[1].textContent = dataRow.guild;
+        row.children[2].textContent = dataRow.administration;
+        row.children[3].textContent = dataRow.politicalSystem;
+        row.children[4].textContent = dataRow.feudalism;
+        row.children[5].textContent = dataRow.espionage;
+        row.children[6].textContent = dataRow.forestry;
+        row.children[7].textContent = dataRow.galleryConstruction;
+        row.children[8].textContent = dataRow.artOfBrewing;
+        row.children[9].textContent = dataRow.agriculture;
+        row.children[10].textContent = dataRow.yari;
+        row.children[11].textContent = dataRow.katana;
+        row.children[12].textContent = dataRow.naginata;
+        row.children[13].textContent = dataRow.arkebuse;
+        row.children[14].textContent = dataRow.yumi;
+        row.children[15].textContent = dataRow.ashigaru;
+        row.children[16].textContent = dataRow.samurai;
+        row.children[17].textContent = dataRow.cutlass;
+        row.children[18].textContent = dataRow.musket;
+        row.children[19].textContent = dataRow.cannon;
+      }
     </script>
     <script>
       var tgth = document.querySelector('#togetherjs');
       tgth.addEventListener('click', function(TogetherJS) {
       }, false);
+      TogetherJSConfig_dontShowClicks = true;
+      TogetherJSConfig_cloneClicks = true;
     </script>
     <script src='togetherjs.min.js' type='text/javascript'></script>
   </body>
