@@ -29,7 +29,7 @@
 
   %body
     Schlacht Um Kyoto
-    %button#togetherjs Start TogetherJS
+    %button#togetherjs{:onclick => 'TogetherJS(this); return false;'} Start TogetherJS
     #add +
     %table#research
       %tr
@@ -150,9 +150,9 @@
 
     :javascript
       var res = document.querySelector('#research');
-      var data = JSON.parse(window.sessionStorage.getItem('data'));
+      var data = JSON.parse(window.sessionStorage.getItem('data')) || {};
       var row;
-      var rows = Object.keys(data).length;
+      var rows = Object.keys(data).length || 0;
       for (nRows = 0; nRows < rows; nRows++) {
         appendRow();
         row = res.lastChild;
@@ -180,9 +180,6 @@
       }
 
     :javascript
-      var tgth = document.querySelector('#togetherjs');
-      tgth.addEventListener('click', function(TogetherJS) {
-      }, false);
       TogetherJSConfig_dontShowClicks = true;
       TogetherJSConfig_cloneClicks = true;
 
