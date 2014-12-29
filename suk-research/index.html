@@ -30,6 +30,7 @@
   </head>
   <body>
     Schlacht Um Kyoto
+    <button id='togetherjs'>Start TogetherJS</button>
     <div id='add'>+</div>
     <table id='research'>
       <tr>
@@ -87,14 +88,35 @@
       
         res.appendChild(tr);
       }, false);
-      
-      research.addEventListener('click', function(e) {
+    </script>
+    <script>
+      var res = document.querySelector('#research');
+      res.addEventListener('click', function(e) {
         var cell = e.target;
-        console.log(cell, cell.nodeName);
-        if (cell.nodeName !== 'TH') {
+        if (cell.nodeName === 'TD') {
           cell.classList.toggle('mark');
+          var val = cell.textContent;
+          cell.textContent = '';
+          var input = document.createElement('input');
+          input.type = 'text';
+          input.value = val;
+          input.addEventListener('keypress', function(e) {
+            if (!e) e = window.event;
+            var kc = e.keyCode || e.which;
+            if (kc == '13') {
+              cell.textContent = this.value;
+              this.parentNode.removeChild(this);
+            }
+          }, false);
+          cell.appendChild(input);
         }
       }, false);
     </script>
+    <script>
+      var tgth = document.querySelector('#togetherjs');
+      tgth.addEventListener('click', function(TogetherJS) {
+      }, false);
+    </script>
+    <script src='togetherjs.min.js' type='text/javascript'></script>
   </body>
 </html>
