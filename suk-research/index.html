@@ -15,7 +15,7 @@
       
       .content {
         width: 70em;
-        margin: 5em auto 0 auto;
+        margin: 6em auto 0 auto;
       }
       
       .title {
@@ -39,6 +39,10 @@
         background-color: white;
       }
       
+      nav {
+        float: right;
+      }
+      
       table {
         clear: both;
         width: 100%;
@@ -46,8 +50,9 @@
         margin-bottom: 2em;
       }
         
-      table, table th, table td {
-        border: 1px solid black;
+      table, table th {
+        border: none;
+        border-bottom: 1px solid black;
         text-align: center;
       }
       
@@ -77,13 +82,30 @@
         }
       
         header {
+          width: 100%;
           left: 0;
           margin-left: 0;
         }
       
-        table { /* Close gap when jumped to via anchor */
-          padding-top: 5em;
-          margin-top: -5em;
+        header * {
+          display: inline-block;
+        }
+      
+        table {
+          padding-top: 10em;
+        }
+      
+        /*
+        table + table {
+          padding-top: 1em;
+        }
+        */
+        
+        @media only screen and (min-width: 708px) {
+          table { /* Close gap when jumped to via anchor */
+            padding-top: 6em;
+            margin-top: -6em;
+          }
         }
       
         table, thead, tbody, tr, th, td {
@@ -105,6 +127,8 @@
           border: none;
           border-bottom: 1px solid black;
           position: relative;
+          text-align: auto;
+          padding: 0.5em 0;
           padding-left: 50%;
         }
       
@@ -115,6 +139,10 @@
           width: 45%;
           padding-right: 10px;
           white-space: nowrap;
+        }
+      
+        td:last-child {
+          border-bottom: none;
         }
       
         #research td:nth-of-type(1):before { content: "Nickname"; }
