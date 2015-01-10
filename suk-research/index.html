@@ -6,60 +6,211 @@
     <style>
       #add {
         float: right;
+        padding: 0.25em;
+        margin: 2em 0.25em 1em 0.25em;
         color: yellow;
         background-color: darkgreen;
         border: 1px solid black;
       }
       
-      table, table th, table td {
-        border: 1px solid black;
+      .content {
+        width: 70em;
+        margin: 5em auto 0 auto;
       }
       
-      tr .civil {
+      .title {
+        display: inline;
+        float: left;
+      }
+      
+      header button, header a {
+        float: left;
+        margin: 2em 0.25em 1em 0.25em;
+      }
+      
+      header {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        z-index: 10;
+        display: block;
+        width: 70em;
+        margin-left: -35em;
+        background-color: white;
+      }
+      
+      table {
+        clear: both;
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 2em;
+      }
+        
+      table, table th, table td {
+        border: 1px solid black;
+        text-align: center;
+      }
+      
+      tr:nth-of-type(even) {
+        background-color: gray;
+      }
+      
+      th.civil {
         background-color: green;
       }
       
-      tr .military {
+      th.military {
         background-color: brown;
       }
       
       tr .mark {
         background-color: red;
       }
+      
+      th {
+        font-weight: bold;
+      }
+      
+      @media only screen and (max-width: 1120px) {
+        .content {
+          width: 100%;
+        }
+      
+        header {
+          left: 0;
+          margin-left: 0;
+        }
+      
+        table { /* Close gap when jumped to via anchor */
+          padding-top: 5em;
+          margin-top: -5em;
+        }
+      
+        table, thead, tbody, tr, th, td {
+          display: block;
+          text-align: left;
+        }
+      
+        thead tr { /* do not display: none for a11y */
+          position: absolute;
+          top: -9999px;
+          left: -9999px;
+        }
+        
+        tr {
+          border: 1px solid black;
+        }
+      
+        td { /* behave like tr */
+          border: none;
+          border-bottom: 1px solid black;
+          position: relative;
+          padding-left: 50%;
+        }
+      
+        td:before { /* behave like th */
+          position: absolute;
+          top: 6px; /* "padding" */
+          left: 6px; /* "padding" */
+          width: 45%;
+          padding-right: 10px;
+          white-space: nowrap;
+        }
+      
+        #research td:nth-of-type(1):before { content: "Nickname"; }
+        #research td:nth-of-type(2):before { content: "Gilde"; }
+        #research td:nth-of-type(3):before { content: "Verwaltung"; }
+        #research td:nth-of-type(4):before { content: "Staatswesen"; }
+        #research td:nth-of-type(5):before { content: "Feudalismus"; }
+        #research td:nth-of-type(6):before { content: "Spionage"; }
+        #research td:nth-of-type(7):before { content: "Forstwirtschaft"; }
+        #research td:nth-of-type(8):before { content: "Stollenbau"; }
+        #research td:nth-of-type(9):before { content: "Braukunst"; }
+        #research td:nth-of-type(10):before { content: "Feldwirtschaft"; }
+      
+        #development td:nth-of-type(1):before { content: "Nickname"; }
+        #development td:nth-of-type(2):before { content: "Gilde"; }
+        #development td:nth-of-type(3):before { content: "Yari"; }
+        #development td:nth-of-type(4):before { content: "Katana"; }
+        #development td:nth-of-type(5):before { content: "Naginata"; }
+        #development td:nth-of-type(6):before { content: "Arkebuse"; }
+        #development td:nth-of-type(7):before { content: "Yari"; }
+        #development td:nth-of-type(8):before { content: "Ashigaru-Rüstung"; }
+        #development td:nth-of-type(9):before { content: "Samurai-Rüstung"; }
+        #development td:nth-of-type(10):before { content: "Entermesser"; }
+        #development td:nth-of-type(11):before { content: "Muskete"; }
+        #development td:nth-of-type(12):before { content: "Kanone"; }
+      }
     </style>
   </head>
   <body>
-    Schlacht Um Kyoto
-    <button id='togetherjs' onclick='TogetherJS(this); return false;'>Start TogetherJS</button>
-    <div id='add'>+</div>
-    <table id='research'>
-      <tr>
-        <th>Nickname</th>
-        <th>Gilde</th>
-        <th class='civil'>Verwaltung</th>
-        <th class='civil'>Staatswesen</th>
-        <th class='civil'>Feudalismus</th>
-        <th class='civil'>Spionage</th>
-        <th class='civil'>Forstwirtschaft</th>
-        <th class='civil'>Stollenbau</th>
-        <th class='civil'>Braukunst</th>
-        <th class='civil'>Feldwirtschaft</th>
-        <th class='military'>Yari</th>
-        <th class='military'>Katana</th>
-        <th class='military'>Naginata</th>
-        <th class='military'>Arkebuse</th>
-        <th class='military'>Yumi</th>
-        <th class='military'>Ashigaru-Rüstung</th>
-        <th class='military'>Samurai-Rüstung</th>
-        <th class='military'>Entermesser</th>
-        <th class='military'>Muskete</th>
-        <th class='military'>Kanone</th>
-      </tr>
-    </table>
+    <header>
+      <h1 class='title'>Schlacht Um Kyoto</h1>
+      <button id='togetherjs' onclick='TogetherJS(this); return false;'>Kollaborieren</button>
+      <nav>
+        <a href='#research' id='Schreiberschule'>Schreiberschule</a>
+        <a href='#development' id='Schmiede'>Schmiede</a>
+        <div id='add'>+</div>
+      </nav>
+    </header>
+    <div class='content'>
+      <table id='research'>
+        <thead>
+          <tr>
+            <th>Nickname</th>
+            <th>Gilde</th>
+            <th class='civil'>Verwaltung</th>
+            <th class='civil'>Staatswesen</th>
+            <th class='civil'>Feudalismus</th>
+            <th class='civil'>Spionage</th>
+            <th class='civil'>Forstwirtschaft</th>
+            <th class='civil'>Stollenbau</th>
+            <th class='civil'>Braukunst</th>
+            <th class='civil'>Feldwirtschaft</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <table id='development'>
+        <thead>
+          <tr>
+            <th>Nickname</th>
+            <th>Gilde</th>
+            <th class='military'>Yari</th>
+            <th class='military'>Katana</th>
+            <th class='military'>Naginata</th>
+            <th class='military'>Arkebuse</th>
+            <th class='military'>Yumi</th>
+            <th class='military'>Ashigaru-Rüstung</th>
+            <th class='military'>Samurai-Rüstung</th>
+            <th class='military'>Entermesser</th>
+            <th class='military'>Muskete</th>
+            <th class='military'>Kanone</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
     <script>
-      var appendRow = function() {
-        var res = document.querySelector('#research');
+      (function() {
+        'use strict';
+        var res = document.querySelector('#research tbody');
+        var dev = document.querySelector('#development tbody');
+        var add = document.querySelector('#add');
       
+        add.addEventListener('click', function(e) {
+          appendRow(res);
+          appendRow(dev);
+        }, false);
+      
+        res.addEventListener('click', function(e) {
+          updateCell(e.target);
+        }, false);
+        dev.addEventListener('click', function(e) {
+          updateCell(e.target);
+        }, false);
+      
+        var appendRow = function(table) {
           var tr = document.createElement('tr');
           var td;
       
@@ -71,55 +222,88 @@
           td.appendChild(document.createTextNode('Guild'));
           tr.appendChild(td);
       
+          var tableType = table.parentElement.id;
+          if (tableType === 'research') {
+            table.appendChild(preFillResearch(tr));
+          } else {
+            table.appendChild(preFillDevelopment(tr));
+          }
+        };
+      
+        var preFillResearch = function(row) {
+          var td;
           for (var i = 0; i < 8; i++) {
             td = document.createElement('td');
             td.appendChild(document.createTextNode('0'));
-            td.classList.add('civil');
-            tr.appendChild(td);
+            row.appendChild(td);
           }
+          return row;
+        };
       
+        var preFillDevelopment = function(row) {
+          var td;
           for (var i = 0; i < 10; i++) {
             td = document.createElement('td');
             td.appendChild(document.createTextNode('0'));
-            td.classList.add('military');
-            tr.appendChild(td);
+            row.appendChild(td);
+          }
+          return row;
+        };
+      
+        var removeMarksInRow = function(cell) {
+          var siblings = cell.parentElement.children;
+          for (var i = 0; i < siblings.length; i++) {
+            siblings[i].classList.remove('mark');
+          }
+        };
+      
+        var updateCell = function(cell) {
+          if (cell.cellIndex > 1) {
+            removeMarksInRow(cell);
+            cell.classList.add('mark');
           }
       
-          res.appendChild(tr);
-      };
-    </script>
-    <script>
-      var res = document.querySelector('#research');
-      res.addEventListener('click', function(e) {
-        var cell = e.target;
-        if (cell.nodeName === 'TD') {
-          cell.classList.toggle('mark');
-      
-          var val = cell.textContent;
-          cell.textContent = '';
           var input = document.createElement('input');
           input.type = 'text';
-          input.value = val;
+          input.value = cell.textContent;
+          cell.textContent = '';
           input.addEventListener('keypress', function(e) {
             if (!e) e = window.event;
             var kc = e.keyCode || e.which;
-            if (kc == '13') {
+            if (kc == '13') { // return key
               cell.textContent = this.value;
+              var tableType = cell.parentElement.parentElement.parentElement.id;
+              var tableRow = parseInt(cell.parentElement.rowIndex)-1;
+              var otherRow;
+              if (tableType === 'research') {
+                otherRow = dev.children[tableRow];
+              } else {
+                otherRow = res.children[tableRow];
+              }
+              var otherCell = otherRow.children[cell.cellIndex];
+              otherCell.textContent = cell.textContent;
               updateStorage();
-              this.parentNode.removeChild(this);
+              try { this.parentNode.removeChild(this); } catch(e) {};
             }
           }, false);
           cell.appendChild(input);
-        }
-      }, false);
+        };
       
-      var updateStorage = function() {
-        var trs = res.querySelectorAll('tr');
-        var store = {};
-        for (tr in trs) {
-          if (trs[tr].nodeName === 'TR' && trs[tr].firstChild.nodeName === 'TD') {
-            tds = trs[tr].childNodes;
-            store[tr] = {
+        var updateStorage = function() {
+          var trRes = res.querySelectorAll('tr');
+          var trDev = dev.querySelectorAll('tr');
+          var store = {};
+          var tds, dataRow, markedCell;
+      
+          for (var i = 0; i < trRes.length; i++) {
+            tds = trRes[i].childNodes;
+            markedCell = trRes[i].querySelector('.mark') || null;
+            if (markedCell) {
+              markedCell = markedCell.cellIndex;
+            } else {
+              markedCell = -1;
+            }
+            store[i] = {
               nickname: tds[0].textContent,
               guild: tds[1].textContent,
               administration: tds[2].textContent,
@@ -130,57 +314,76 @@
               galleryConstruction: tds[7].textContent,
               artOfBrewing: tds[8].textContent,
               agriculture: tds[9].textContent,
-              yari: tds[10].textContent,
-              katana: tds[11].textContent,
-              naginata: tds[12].textContent,
-              arkebuse: tds[13].textContent,
-              yumi: tds[14].textContent,
-              ashigaru: tds[15].textContent,
-              samurai: tds[16].textContent,
-              cutlass: tds[17].textContent,
-              musket: tds[18].textContent,
-              cannon: tds[19].textContent
+              markedResearch: markedCell
             };
           }
+      
+          for (var j = 0; j < trDev.length; j++) {
+            tds = trDev[j].childNodes;
+            markedCell = trDev[j].querySelector('.mark') || null;
+            if (markedCell) {
+              markedCell = markedCell.cellIndex;
+            } else {
+              markedCell = -1;
+            }
+            store[j].yari = tds[2].textContent;
+            store[j].katana = tds[3].textContent;
+            store[j].naginata = tds[4].textContent;
+            store[j].arkebuse = tds[5].textContent;
+            store[j].yumi = tds[6].textContent;
+            store[j].ashigaru = tds[7].textContent;
+            store[j].samurai = tds[8].textContent;
+            store[j].cutlass = tds[9].textContent;
+            store[j].musket = tds[10].textContent;
+            store[j].cannon = tds[11].textContent;
+            store[j].markedDevelopment = markedCell;
+          }
+          window.sessionStorage.setItem('data', JSON.stringify(store));
+        };
+      
+        var data = JSON.parse(window.sessionStorage.getItem('data')) || {};
+        var rows = Object.keys(data).length || 0;
+        var rowRes, rowDev, dataRow;
+        for (var iRows = 0; iRows < rows; iRows++) {
+          appendRow(res);
+          appendRow(dev);
+          rowRes = res.lastChild;
+          rowDev = dev.lastChild;
+          dataRow = data[iRows];
+      
+          rowRes.children[0].textContent = dataRow.nickname;
+          rowRes.children[1].textContent = dataRow.guild;
+          rowRes.children[2].textContent = dataRow.administration;
+          rowRes.children[3].textContent = dataRow.politicalSystem;
+          rowRes.children[4].textContent = dataRow.feudalism;
+          rowRes.children[5].textContent = dataRow.espionage;
+          rowRes.children[6].textContent = dataRow.forestry;
+          rowRes.children[7].textContent = dataRow.galleryConstruction;
+          rowRes.children[8].textContent = dataRow.artOfBrewing;
+          rowRes.children[9].textContent = dataRow.agriculture;
+      
+          rowDev.children[0].textContent = dataRow.nickname;
+          rowDev.children[1].textContent = dataRow.guild;
+          rowDev.children[2].textContent = dataRow.yari;
+          rowDev.children[3].textContent = dataRow.katana;
+          rowDev.children[4].textContent = dataRow.naginata;
+          rowDev.children[5].textContent = dataRow.arkebuse;
+          rowDev.children[6].textContent = dataRow.yumi;
+          rowDev.children[7].textContent = dataRow.ashigaru;
+          rowDev.children[8].textContent = dataRow.samurai;
+          rowDev.children[9].textContent = dataRow.cutlass;
+          rowDev.children[10].textContent = dataRow.musket;
+          rowDev.children[11].textContent = dataRow.cannon;
+      
+          if (dataRow.markedResearch > 1) {
+            rowRes.children[dataRow.markedResearch].classList.add('mark');
+          }
+      
+          if (dataRow.markedDevelopment > 1) {
+            rowDev.children[dataRow.markedDevelopment].classList.add('mark');
+          }
         }
-        window.sessionStorage.setItem('data', JSON.stringify(store));
-      };
-    </script>
-    <script>
-      var add = document.querySelector('#add');
-      add.addEventListener('click', appendRow, false);
-    </script>
-    <script>
-      var res = document.querySelector('#research');
-      var data = JSON.parse(window.sessionStorage.getItem('data')) || {};
-      var row;
-      var rows = Object.keys(data).length || 0;
-      console.log(data,rows);
-      for (nRows = 0; nRows < rows; nRows++) {
-        appendRow();
-        row = res.lastChild;
-        dataRow = data[(nRows+1)];
-        row.children[0].textContent = dataRow.nickname;
-        row.children[1].textContent = dataRow.guild;
-        row.children[2].textContent = dataRow.administration;
-        row.children[3].textContent = dataRow.politicalSystem;
-        row.children[4].textContent = dataRow.feudalism;
-        row.children[5].textContent = dataRow.espionage;
-        row.children[6].textContent = dataRow.forestry;
-        row.children[7].textContent = dataRow.galleryConstruction;
-        row.children[8].textContent = dataRow.artOfBrewing;
-        row.children[9].textContent = dataRow.agriculture;
-        row.children[10].textContent = dataRow.yari;
-        row.children[11].textContent = dataRow.katana;
-        row.children[12].textContent = dataRow.naginata;
-        row.children[13].textContent = dataRow.arkebuse;
-        row.children[14].textContent = dataRow.yumi;
-        row.children[15].textContent = dataRow.ashigaru;
-        row.children[16].textContent = dataRow.samurai;
-        row.children[17].textContent = dataRow.cutlass;
-        row.children[18].textContent = dataRow.musket;
-        row.children[19].textContent = dataRow.cannon;
-      }
+      })();
     </script>
     <script>
       TogetherJSConfig_dontShowClicks = true;
