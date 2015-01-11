@@ -173,7 +173,7 @@
   %body
     %header
       %h1.title Schlacht Um Kyoto
-      %button#togetherjs{:onclick => 'TogetherJS(this); return false;'} Kollaborieren
+      %button#togetherjs{:type => 'button', :onclick => 'TogetherJS(this); return false;', 'data-end-togetherjs-html' => 'Alleine'} Kollaborieren
       %nav
         %a#Schreiberschule{:href => '#research'} Schreiberschule
         %a#Schmiede{:href => '#development'} Schmiede
