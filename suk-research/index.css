@@ -1,0 +1,165 @@
+#add {
+    float: right;
+    padding: 0.25em;
+    margin: 2em 0.25em 1em 0.25em;
+    color: yellow;
+    background-color: darkgreen;
+    border: 1px solid black;
+}
+
+.content {
+    width: 70em;
+    margin: 6em auto 0 auto;
+}
+
+.title {
+    display: inline;
+    float: left;
+}
+
+header button, header a {
+    float: left;
+    margin: 2em 0.25em 1em 0.25em;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    z-index: 10;
+    display: block;
+    width: 70em;
+    margin-left: -35em;
+    background-color: white;
+}
+
+nav {
+    float: right;
+}
+
+table {
+    clear: both;
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2em;
+}
+        
+table, table th {
+    border: none;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+tr:nth-of-type(even) {
+    background-color: gray;
+}
+
+th.civil {
+    background-color: green;
+}
+
+th.military {
+    background-color: brown;
+}
+
+tr .mark {
+    background-color: red;
+}
+
+th {
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 1120px) {
+    .content {
+        width: 100%;
+    }
+    
+    header {
+        width: 100%;
+        left: 0;
+        margin-left: 0;
+    }
+    
+    header * {
+        display: inline-block;
+    }
+    
+    table {
+        padding-top: 10em;
+    }
+    
+    /*
+    table + table {
+        padding-top: 1em;
+    }
+    */
+    
+    @media only screen and (min-width: 708px) {
+        table { /* Close gap when jumped to via anchor */
+            padding-top: 6em;
+            margin-top: -6em;
+        }
+    }
+
+    table, thead, tbody, tr, th, td {
+        display: block;
+        text-align: left;
+    }
+    
+    thead tr { /* do not display: none for a11y */
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    
+    tr {
+        border: 1px solid black;
+    }
+    
+    td { /* behave like tr */
+        border: none;
+        border-bottom: 1px solid black;
+        position: relative;
+        text-align: auto;
+        padding: 0.5em 0;
+        padding-left: 50%;
+    }
+    
+    td:before { /* behave like th */
+        position: absolute;
+        top: 6px; /* "padding" */
+        left: 6px; /* "padding" */
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+
+    td:last-child {
+        border-bottom: none;
+    }
+    
+    #research td:nth-of-type(1):before { content: "Nickname"; }
+    #research td:nth-of-type(2):before { content: "Gilde"; }
+    #research td:nth-of-type(3):before { content: "Verwaltung"; }
+    #research td:nth-of-type(4):before { content: "Staatswesen"; }
+    #research td:nth-of-type(5):before { content: "Feudalismus"; }
+    #research td:nth-of-type(6):before { content: "Spionage"; }
+    #research td:nth-of-type(7):before { content: "Forstwirtschaft"; }
+    #research td:nth-of-type(8):before { content: "Stollenbau"; }
+    #research td:nth-of-type(9):before { content: "Braukunst"; }
+    #research td:nth-of-type(10):before { content: "Feldwirtschaft"; }
+
+    #development td:nth-of-type(1):before { content: "Nickname"; }
+    #development td:nth-of-type(2):before { content: "Gilde"; }
+    #development td:nth-of-type(3):before { content: "Yari"; }
+    #development td:nth-of-type(4):before { content: "Katana"; }
+    #development td:nth-of-type(5):before { content: "Naginata"; }
+    #development td:nth-of-type(6):before { content: "Arkebuse"; }
+    #development td:nth-of-type(7):before { content: "Yari"; }
+    #development td:nth-of-type(8):before { content: "Ashigaru-Rüstung"; }
+    #development td:nth-of-type(9):before { content: "Samurai-Rüstung"; }
+    #development td:nth-of-type(10):before { content: "Entermesser"; }
+    #development td:nth-of-type(11):before { content: "Muskete"; }
+    #development td:nth-of-type(12):before { content: "Kanone"; }
+}
