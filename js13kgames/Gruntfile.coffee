@@ -4,6 +4,12 @@ module.exports = (grunt) ->
     grunt.initConfig
         pkg: grunt.file.readJSON 'package.json'
 
+        maxFilesize:
+            app:
+                options:
+                    maxBytes: 13312
+                src: ['build/js13k-breaker-panel.min.js']
+
         "mocha-chai-sinon":
             test:
                 options:
@@ -22,8 +28,9 @@ module.exports = (grunt) ->
 
     # Load the plugins
     grunt.loadNpmTasks 'grunt-contrib-uglify'
+    grunt.loadNpmTasks 'grunt-max-filesize'
     grunt.loadNpmTasks 'grunt-mocha-chai-sinon'
 
     # Default task(s).
-    grunt.registerTask 'default', ['uglify']
+    grunt.registerTask 'default', ['uglify', 'maxFilesize']
     grunt.registerTask 'test', ['mocha-chai-sinon']
