@@ -4,12 +4,12 @@ module.exports = (grunt) ->
     grunt.initConfig
         pkg: grunt.file.readJSON 'package.json'
 
-        mocha:
+        "mocha-chai-sinon":
             test:
                 options:
-                    reporter: 'Spec'
-                    run: true
-                src: ['tests/**/*.html']
+                    ui: 'bdd'
+                    reporter: 'spec'
+                src: ['test/**/*.spec.js']
 
         uglify:
             options:
@@ -20,8 +20,8 @@ module.exports = (grunt) ->
 
     # Load the plugins
     grunt.loadNpmTasks 'grunt-contrib-uglify'
-    grunt.loadNpmTasks 'grunt-mocha'
+    grunt.loadNpmTasks 'grunt-mocha-chai-sinon'
 
     # Default task(s).
     grunt.registerTask 'default', ['uglify']
-    grunt.registerTask 'test', ['mocha']
+    grunt.registerTask 'test', ['mocha-chai-sinon']
