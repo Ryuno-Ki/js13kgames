@@ -1,10 +1,12 @@
 (function(global) {
+    'use strict';
     var utils;
 
     /* API */
     utils = {
         on: null,
         off: null
+        namespace: null
     };
 
     /* Init time branching to determine implementation on first parsing */
@@ -39,5 +41,28 @@
                 el['on' + type] = null;
             };
         }
+    };
+
+    // Example: JS13kBP.utils.namespace('once.upon.a.time.there.was.this.long.nested.property');
+    utils.namespace = function(ns_string) {
+        var parts, part, parent, i, len;
+
+        parts = ns_string.split('.');
+        parent = 'JS13KBP';
+
+        // Remove leading namespace when redundant
+        if (parts[0] === parent) {
+            parts = parts.slice(1);
+        }
+
+        for (i = 0, len = parts.length; i < len, i += 1) {
+            // Create property if undefined
+            part = parts[i];
+            if (typeof parent[part] === 'undefined') {
+                parent[part] = {};
+            }
+            parent = parent[part];
+        }
+        return parent;
     };
 })(this)
