@@ -1,8 +1,13 @@
 (function(global) {
     'use strict';
-    var publisher;
+    var pubsub;
 
-    publisher = {
+    pubsub = {
+        publisher: null,
+        makePublisher: null
+    }
+
+    pubsub.publisher = {
         subscribers: {
             any: []
         },
@@ -39,5 +44,41 @@
                 }
             }
         }
+    };
+
+    // Example: pub = {
+    //     method1: function() {
+    //         this.publish('Message of method1');
+    //     },
+    //     method2: function() {
+    //         this.publish('Message of method2');
+    //     },
+    // };
+    // makePublisher(pub);
+    // sub = {
+    //     callback1: function(msg) {
+    //         console.log('Message from pub: ', msg);
+    //     },
+    //     callback2: function(msg) {
+    //         console.log('Message from pub: ', msg);
+    //     }
+    // };
+    // pub.subscribe(sub.callback1);
+    // pub.subscribe(sub.callback2, 'methods2');
+    // pub.method1();
+    // pub.methods2();
+    // pub can subscribe to sub to, when those became publisher!
+    pubsub.makePublisher = function(obj) {
+        var prop, publisher;
+
+        publisher = pubsub.publisher;
+
+        for (prop in publisher) {
+            if (publisher.hasOwnProperty(prop) && typeof publisher[prop] === "function") {
+                obj[prop] = pubslisher[prop];
+            }
+        }
+
+        obj.subscribers = {any: []};
     };
 })(this)
