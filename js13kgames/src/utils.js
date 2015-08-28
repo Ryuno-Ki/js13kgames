@@ -5,8 +5,9 @@
     /* API */
     utils = {
         on: null,
-        off: null
-        namespace: null
+        off: null,
+        namespace: null,
+        inherit: null
     };
 
     /* Init time branching to determine implementation on first parsing */
@@ -65,4 +66,16 @@
         }
         return parent;
     };
+
+    // Example: utils.inherit(KidConstructor, ParentConstructor)
+    utils.inherit = (function() {
+        var Proxy;
+        Proxy = function() {};  // Temporary constructor, created only once
+        return function(Child, Parent) {
+            Proxy.prototype = Parent.prototype;
+            Child.prototype = new Proxy();  // Only inherit prototype methods
+            Child.superior = Parent.prototype;  // For access to the super class
+            Child.prototype.constructor = Child;  // For introspection purposes
+        };
+    })();
 })(this)
