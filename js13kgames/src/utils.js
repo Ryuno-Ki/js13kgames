@@ -9,7 +9,8 @@
         namespace: null,
         inherit: null,
         klass: null,
-        extend: null
+        extend: null,
+        extendDeep: null
     };
 
     /* Init time branching to determine implementation on first parsing */
@@ -119,5 +120,25 @@
                 child[prop] = parent[prop];
             }
         }
+    };
+
+    utils.extendDeep = function(parent, child) {
+        var prop, toStr, p;
+
+        toStr = Object.prototype.toString;
+        child = child || {};
+
+        for (prop in parent) {
+            if (parent.hasOwnProperty(prop)) {
+                p = parent[prop];
+                if (typeof p === "object") {
+                    child[prop] = Array.isArray(p) ? [] : {};
+                    extendDeep(p, child[prop]);
+                } else {
+                    child[prop] = parent[prop];
+                }
+            }
+        }
+        return child;
     };
 })(this)
