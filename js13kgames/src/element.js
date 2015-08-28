@@ -10,9 +10,16 @@
             return new Element();
         }
         this.name = name;
+        this.called = 0;
     };
 
     Element.prototype.getName = function() {
         return this.name;
+    };
+
+    Element.prototype.calledHowOften = function() {
+        return function() {
+            return (this.called += 1);
+        };
     };
 })(this)
