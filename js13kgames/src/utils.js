@@ -80,7 +80,7 @@
             parts = parts.slice(1);
         }
 
-        for (i = 0, len = parts.length; i < len, i += 1) {
+        for (i = 0, len = parts.length; i < len; i += 1) {
             // Create property if undefined
             part = parts[i];
             if (typeof parent[part] === 'undefined') {
