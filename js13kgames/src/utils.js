@@ -7,7 +7,8 @@
         on: null,
         off: null,
         namespace: null,
-        inherit: null
+        inherit: null,
+        klass: null
     };
 
     /* Init time branching to determine implementation on first parsing */
@@ -78,4 +79,33 @@
             Child.prototype.constructor = Child;  // For introspection purposes
         };
     })();
+
+    utils.klass = function(Parent, properties) {
+        var Child, prop;
+
+        // new constructor
+        Child = function() {
+            // _construct can be key in properties and shall be a function assigning arguments of new operator to this
+            if (Child.superior && Child.superior.hasOwnProperty("_construct")) {
+                Child.superior._cunstruct.apply(this, arguments);
+            }
+            if (Child.prototype.hasOwnProperty("_construct")) {
+                Child.prototype._construct.apply(this, arguments);
+            }
+        };
+
+        // inherit
+        Parent = Parent || Object;
+        utils.inherit(Child, Parent);
+
+        // add methods
+        for (prop in properties) {
+            if (properties.hasOwnProperty(prop)) {
+                Child.prototype[prop] = properties[prop];
+            }
+        }
+
+        // return "class"
+        return Child;
+    };
 })(this)
