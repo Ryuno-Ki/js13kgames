@@ -10,7 +10,8 @@
         inherit: null,
         klass: null,
         extend: null,
-        extendDeep: null
+        extendDeep: null,
+        mix: null
     };
 
     /* Init time branching to determine implementation on first parsing */
@@ -139,6 +140,25 @@
                 }
             }
         }
+        return child;
+    };
+
+    // Mix several objects into a compounded one
+    // Example: var cake = mix({eggs: 2, large: true}, {sugar: "sure!"});
+    utils.mix = function() {
+        var i, arg, len, prop, child;
+
+        child = {};
+
+        for (i = 0, len = arguments.length; i < len; i += 1) {
+            arg = arguments[i];
+            for (prop in arg) {
+                if (arg.hasOwnProperty(prop)) {
+                    child[prop] = arg[prop];
+                }
+            }
+        }
+
         return child;
     };
 })(this)
