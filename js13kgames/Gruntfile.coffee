@@ -6,6 +6,15 @@ module.exports = (grunt) ->
     grunt.initConfig
         pkg: grunt.file.readJSON 'package.json'
 
+        csscomb:
+            sort:
+                files:
+                    'build/<%= pkg.name %>.sorted.css': [
+                        'src/*.css'
+                    ]
+                options:
+                    config: '.csscomb.json'
+
         cssmin:
             options:
                 sourceMap: true
@@ -91,6 +100,7 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-contrib-jshint'
     grunt.loadNpmTasks 'grunt-contrib-uglify'
     grunt.loadNpmTasks 'grunt-contrib-watch'
+    grunt.loadNpmTasks 'grunt-csscomb'
     grunt.loadNpmTasks 'grunt-jsdoc'
     grunt.loadNpmTasks 'grunt-max-filesize'
     grunt.loadNpmTasks 'grunt-mocha-chai-sinon'
