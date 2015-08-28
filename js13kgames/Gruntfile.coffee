@@ -79,7 +79,17 @@ module.exports = (grunt) ->
         uglify:
             build:
                 options:
-                    banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+                    banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +\
+                        '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
+                    mangle:
+                        except: [
+                            'JS13KBP'
+                        ]
+                    mangleProperties: true
+                    preserveComments: false
+                    reserveDOMProperties: true
+                    screwIE8: true
+                    sourceMap: true
                 files:
                     'build/<%= pkg.name %>.min.js': [
                         'src/*.js'
@@ -108,5 +118,9 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-processhtml'
 
     # Default task(s).
-    grunt.registerTask 'default', ['uglify', 'maxFilesize']
+    grunt.registerTask 'default', [
+        'cssmin'
+        'uglify'
+        'maxFilesize'
+    ]
     grunt.registerTask 'test', ['mocha-chai-sinon']
