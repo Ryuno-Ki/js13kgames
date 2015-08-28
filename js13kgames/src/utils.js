@@ -6,6 +6,7 @@
     utils = {
         on: null,
         off: null,
+        stop: null,
         namespace: null,
         inherit: null,
         klass: null,
@@ -48,6 +49,25 @@
         }
     };
 
+    // Stop events from bubbling up
+    utils.stop = function(event) {
+        if (typeof event.preventDefault === "function") {
+            event.preventDefault();
+        }
+
+        if (typeof event.stopPropagation === "function") {
+            event.stopPropagation();
+        }
+
+        // IE
+        if (typeof event.returnValue === "boolean") {
+            event.returnValue = false;
+        }
+
+        if (typeof event.cancelBubble === "boolean") {
+            event.cancelBubble = false;
+        }
+    };
     // Example: JS13kBP.utils.namespace('once.upon.a.time.there.was.this.long.nested.property');
     utils.namespace = function(ns_string) {
         var parts, part, parent, i, len;
