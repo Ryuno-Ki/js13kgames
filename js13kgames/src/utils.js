@@ -8,7 +8,8 @@
         off: null,
         namespace: null,
         inherit: null,
-        klass: null
+        klass: null,
+        extend: null
     };
 
     /* Init time branching to determine implementation on first parsing */
@@ -107,5 +108,16 @@
 
         // return "class"
         return Child;
+    };
+
+    // Flat copy of properties, whitout walking down objects, but copying references
+    utils.extend = function(parent, child) {
+        var prop;
+        child = child || {};
+        for (prop in parent) {
+            if (parent.hasOwnProperty(prop)) {
+                child[prop] = parent[prop];
+            }
+        }
     };
 })(this)
