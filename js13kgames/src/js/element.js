@@ -83,7 +83,7 @@
         that = this;
         that._name = name + '-' + SwitchElement.count;
         that._type = 'switch';
-        that._state = 'closed';
+        that._closed = true;
         that._icon = 'switch';
 
         that._input = null;
@@ -96,16 +96,17 @@
 
     seProto = SwitchElement.prototype;
     seProto.isClosed = function() {
-        return this._state === 'closed';
+        return this._closed;
     };
 
     seProto.renderSelf = function(node) {
-        var img, that;
+        var img, that, closed;
 
         that = this;
+        closed = that._closed ? 'closed' : 'open';
 
-        img = "<img src='build/" + that._icon + "-" + that._state + ".svg' ";
-        img += "alt='" + that._type + "-" + that._state + ": " + that._name + "' />";
+        img = "<img src='build/" + that._icon + "-" + closed + ".svg' ";
+        img += "alt='" + that._type + "-" + closed + ": " + that._name + "' />";
         node.innerHTML += img;
     };
 
@@ -131,6 +132,10 @@
 
     seProto.getOutput = function() {
         return this._output;
+    };
+
+    seProto.useSwitch = function() {
+        this._closed = !this._closed;
     };
 
     circuitIsClosed = function(elements) {
