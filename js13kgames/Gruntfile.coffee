@@ -10,7 +10,7 @@ module.exports = (grunt) ->
             sort:
                 files:
                     'build/<%= pkg.name %>.sorted.css': [
-                        'src/*.css'
+                        'src/css/*.css'
                     ]
                 options:
                     config: '.csscomb.json'
@@ -21,7 +21,7 @@ module.exports = (grunt) ->
             build:
                 files:
                     'build/<%= pkg.name %>.min.css': [
-                        'src/*.css'
+                        'src/css/*.css'
                     ]
 
         imagemin:
@@ -104,7 +104,7 @@ module.exports = (grunt) ->
             scripts:
                 files: [
                     'src/js/*.js'
-                    'src/*.css'
+                    'src/css/*.css'
                 ]
                 tasks: [
                     'cssmin'
