@@ -1,56 +1,44 @@
-(function(global) {
+(function(window) {
     'use strict';
-    var utils;
+    var ns, on, off, stop, namespace, inherit, klass, extend, extendDeep, mix;
 
-    /* API */
-    utils = {
-        on: null,
-        off: null,
-        stop: null,
-        namespace: null,
-        inherit: null,
-        klass: null,
-        extend: null,
-        extendDeep: null,
-        mix: null
-    };
 
     /* Init time branching to determine implementation on first parsing */
-    utils.on = function(el, type, fn) {
+    on = function(el, type, fn) {
         if (typeof window.addEventListener === 'function') {
-            utils.on = function(el, type, fn) {
+            on = function(el, type, fn) {
                 el.addEventListener(type, fn, false);
             };
         } else if (typeof document.attachEvent === 'function') { // IE
-            utils.on = function(el, type, fn) {
+            on = function(el, type, fn) {
                 el.attachEvent('on' + type, fn);
             };
         } else { // Elder browser
-            utils.on = function(el, type, fn) {
+            on = function(el, type, fn) {
                 el['on' + type] = fn;
             };
         }
     };
 
     /* Init time branching to determine implementation on first parsing */
-    utils.off = function(el, type, fn) {
+    off = function(el, type, fn) {
         if (typeof window.removeEventListener === 'function') {
-            utils.off = function(el, type, fn) {
+            off = function(el, type, fn) {
                 el.removeEventListener(type, fn, false);
             };
         } else if (typeof document.detachEvent === 'function') { // IE
-            utils.off = function(el, type, fn) {
+            off = function(el, type, fn) {
                 el.detachEvent('on' + type, fn);
             };
         } else { // Elder browser
-            utils.off = function(el, type, fn) {
+            off = function(el, type, fn) {
                 el['on' + type] = null;
             };
         }
     };
 
     // Stop events from bubbling up
-    utils.stop = function(event) {
+    stop = function(event) {
         if (typeof event.preventDefault === "function") {
             event.preventDefault();
         }
@@ -69,7 +57,7 @@
         }
     };
     // Example: JS13KBP.utils.namespace('once.upon.a.time.there.was.this.long.nested.property');
-    utils.namespace = function(ns_string) {
+    namespace = function(ns_string) {
         var parts, part, parent, i, len;
 
         parts = ns_string.split('.');
@@ -88,11 +76,11 @@
             }
             parent = parent[part];
         }
-        return parent;
+        return window.parent;
     };
 
     // Example: utils.inherit(KidConstructor, ParentConstructor)
-    utils.inherit = (function() {
+    inherit = (function() {
         var Proxy;
         Proxy = function() {};  // Temporary constructor, created only once
         return function(Child, Parent) {
@@ -103,7 +91,7 @@
         };
     })();
 
-    utils.klass = function(Parent, properties) {
+    klass = function(Parent, properties) {
         var Child, prop;
 
         // new constructor
@@ -119,7 +107,7 @@
 
         // inherit
         Parent = Parent || Object;
-        utils.inherit(Child, Parent);
+        inherit(Child, Parent);
 
         // add methods
         for (prop in properties) {
@@ -133,7 +121,7 @@
     };
 
     // Flat copy of properties, whitout walking down objects, but copying references
-    utils.extend = function(parent, child) {
+    extend = function(parent, child) {
         var prop;
         child = child || {};
         for (prop in parent) {
@@ -143,7 +131,7 @@
         }
     };
 
-    utils.extendDeep = function(parent, child) {
+    extendDeep = function(parent, child) {
         var prop, toStr, p;
 
         toStr = Object.prototype.toString;
@@ -154,7 +142,7 @@
                 p = parent[prop];
                 if (typeof p === "object") {
                     child[prop] = Array.isArray(p) ? [] : {};
-                    utils.extendDeep(p, child[prop]);
+                    extendDeep(p, child[prop]);
                 } else {
                     child[prop] = parent[prop];
                 }
@@ -165,7 +153,7 @@
 
     // Mix several objects into a compounded one
     // Example: var cake = mix({eggs: 2, large: true}, {sugar: "sure!"});
-    utils.mix = function() {
+    mix = function() {
         var i, arg, len, prop, child;
 
         child = {};
@@ -181,4 +169,21 @@
 
         return child;
     };
+
+    window.JS13KBP = window.JS13KBP || {};
+
+    /* API */
+    ns = window.JS13KBP;
+    ns.utils = {
+        on: on,
+        off: off,
+        stop: stop,
+        namespace: namespace,
+        inherit: inherit,
+        klass: klass,
+        extend: extend,
+        extendDeep: extendDeep,
+        mix: mix
+    };
+    return ns;
 })(this);
