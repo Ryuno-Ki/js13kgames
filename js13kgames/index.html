@@ -8,6 +8,76 @@
     </head>
     <body>
         <h1>K-Breaker-Panel for js13kgames competition</h1>
+        <aside id="fork-on-github">
+            <a href="https://github.com/Ryuno-Ki.github.io/js13kames/" target="_blank" rel="nofollow">
+                Fork me on GitHub!
+            </a>
+        </aside>
+        <main id="game">
+        </main>
         <script type="text/javascript" src="build/js13k-breaker-panel.min.js"></script>
+        <!-- For live debuggin -->
+        <script type="text/javascript">
+            window.addEventListener('load', function() {
+                "use strict";
+                var hrefs, srcs, assets, asset, i, len, href, addr, sizes, fetchSize;
+
+                hrefs = document.querySelectorAll('[href]');
+                srcs = document.querySelectorAll('[src]');
+
+                assets = [{src: window.location.href + "index.html"}];
+                for (i = 0, len = hrefs.length; i < len; i += 1) {
+                    href = hrefs[i];
+                    if (href.nodeName !== "A") {
+                        assets.push(hrefs[i]);
+                    }
+                }
+                for (i = 0, len = srcs.length; i < len; i += 1) {
+                    assets.push(srcs[i]);
+                }
+
+                sizes = [];
+                fetchSize = function(source, callback) {
+                    var xhr, headers, size;
+
+                    xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4) {
+                            headers = xhr.getAllResponseHeaders();
+                            size = {};
+                            size[source] = parseInt(headers.match(/Content-Length: (\d+)/)[1], 10);
+                            callback(size);
+                        }
+                    };
+                    xhr.open('HEAD', source);
+                    xhr.send(null);
+                };
+
+                for (i = 0, len = assets.length; i < len; i += 1) {
+                    asset = assets[i];
+                    addr = asset.href ? asset.href : asset.src;
+                    fetchSize(addr, function(size) {
+                        sizes.push(size);
+                    });
+                }
+                setTimeout(function() {
+                    var size, i, len, prop, p, sum;
+
+                    sum = 0;
+                    for (i = 0, len = sizes.length; i < len; i += 1) {
+                        size = sizes[i];
+                        for (prop in size) {
+                            if (size.hasOwnProperty(prop)) {
+                                p = document.createElement('p');
+                                p.innerHTML = prop + ': ' + size[prop];
+                                document.body.appendChild(p);
+                                sum += size[prop];
+                            }
+                        }
+                    }
+                    document.body.appendChild(document.createTextNode('Gesamt: ' + sum + ' (' + 100 * sum/13312 + ' %)'));
+                }, 1000);
+            }, false);
+        </script>
     </body>
 </html>
