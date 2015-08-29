@@ -59,7 +59,11 @@ module.exports = (grunt) ->
             app:
                 options:
                     maxBytes: 13312
-                src: ['build/js13k-breaker-panel.min.js']
+                src: [
+                    'index.html'
+                    'build/js13k-breaker-panel.min.css'
+                    'build/js13k-breaker-panel.min.js'
+                ]
 
         "mocha-chai-sinon":
             test:
@@ -81,11 +85,7 @@ module.exports = (grunt) ->
                 options:
                     banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +\
                         '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
-                    mangle:
-                        except: [
-                            'JS13KBP'
-                        ]
-                    mangleProperties: true
+                    mangleProperties: false
                     preserveComments: false
                     reserveDOMProperties: true
                     screwIE8: true
@@ -99,9 +99,12 @@ module.exports = (grunt) ->
             scripts:
                 files: [
                     'src/*.js'
+                    'src/*.css'
                 ]
                 tasks: [
-                    'doc'
+                    'cssmin'
+                    'uglify'
+                    'maxFilesize'
                 ]
 
     # Load the plugins
@@ -122,5 +125,6 @@ module.exports = (grunt) ->
         'cssmin'
         'uglify'
         'maxFilesize'
+        'watch'
     ]
     grunt.registerTask 'test', ['mocha-chai-sinon']
