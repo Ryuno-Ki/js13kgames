@@ -68,7 +68,7 @@
             event.cancelBubble = false;
         }
     };
-    // Example: JS13kBP.utils.namespace('once.upon.a.time.there.was.this.long.nested.property');
+    // Example: JS13KBP.utils.namespace('once.upon.a.time.there.was.this.long.nested.property');
     utils.namespace = function(ns_string) {
         var parts, part, parent, i, len;
 
