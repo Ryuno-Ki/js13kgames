@@ -1,5 +1,5 @@
-var utils = require('../../src/utils.js');
-var ns = require('../../src/element.js');
+var utils = require('../../src/js/utils.js');
+var ns = require('../../src/js/element.js');
 console.log("Spec", ns, utils);
 var element = ns.JS13KBP.element;
 

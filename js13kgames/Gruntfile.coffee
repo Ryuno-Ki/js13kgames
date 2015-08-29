@@ -34,7 +34,7 @@ module.exports = (grunt) ->
                         {removeEmptyAttrs: false}
                     ]
                 files:
-                    'build/switch.svg': 'src/svg/switch.svg'
+                    'build/switch-closed.svg': 'src/svg/switch-closed.svg'
 
         jsdoc:
             doc:

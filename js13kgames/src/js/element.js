@@ -41,6 +41,13 @@
         return this._type;
     };
 
+    Element.prototype.renderSelf = function(node) {
+        var img;
+
+        img = "<img src='build/" + this._icon + "' alt='" + this._type + ": " + this._name + "' />";
+        node.innerHTML += img;
+    };
+
     // FIXME: Use utils.inherit!
     inherit = (function() {
         var Proxy;
@@ -56,7 +63,7 @@
     SwitchElement = function(name) {
         // Ensure being called with `new`
         if (!(this instanceof SwitchElement)) {
-            return new SwitchElement();
+            return new SwitchElement(name);
         }
 
         // Private members
@@ -65,13 +72,25 @@
         SwitchElement.count += 1;
         this._name = name + '-' + SwitchElement.count;
         this._type = 'switch';
-        this._icon = 'switch.svg';
+        this._state = 'closed';
+        this._icon = 'switch';
     };
 
+    inherit(SwitchElement, Element);
     // Static methods
     SwitchElement.count = 0;
 
-    inherit(SwitchElement, Element);
+    SwitchElement.prototype.isClosed = function() {
+        return this._state === 'closed';
+    };
+
+    SwitchElement.prototype.renderSelf = function(node) {
+        var img;
+
+        img = "<img src='build/" + this._icon + "-" + this._state + ".svg' ";
+        img += "alt='" + this._type + "-" + this._state + ": " + this._name + "' />";
+        node.innerHTML += img;
+    };
 
     window.JS13KBP = window.JS13KBP || {};
 
