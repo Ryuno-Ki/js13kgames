@@ -92,7 +92,12 @@ module.exports = (grunt) ->
                     sourceMap: true
                 files:
                     'build/<%= pkg.name %>.min.js': [
-                        'src/*.js'
+                        'src/utils.js'
+                        'src/pubsub.js'
+                        'src/errors.js'
+                        'src/element.js'
+                        'src/modules.js'
+                        'src/<%= pkg.name %>.js'
                     ]
 
         watch:
