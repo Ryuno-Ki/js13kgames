@@ -1,11 +1,20 @@
 (function(global) {
     "use strict";
-    var Element;
+    var ns, Element;
+
+    // FIMXE: Move to namespace utility
+    if (typeof global.JS13KBP === "undefined") {
+        global.JS13KBP = {};
+    }
+    if (typeof global.JS13KBP.element === "undefined") {
+        global.JS13KBP.element = {};
+    }
+    ns = global.JS13KBP.element;
 
     /**
      * Describes abstract parent class for all construction elements.
      */
-    Element = function(name) {
+    Element = function Element(name) {
         // Ensure being called with `new`
         if (!(this instanceof Element)) {
             return new Element();
@@ -33,4 +42,5 @@
             return (this.called += 1);
         };
     };
+    ns.Element = Element;
 })(this)
