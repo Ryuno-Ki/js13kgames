@@ -20,10 +20,11 @@
             return new Element();
         }
 
-        var feature;
+        // Private members
+        var feature, called;
 
         this.name = name;
-        this.called = 0;
+        called = 0;
 
         // feature is truly private here
         // Doesn't work with Arrays and Objects (passed by reference!)
@@ -31,16 +32,14 @@
         this.getFeature = function() {
             return feature;
         };
+
+        this.calledHowOften = function() {
+            return called += 1;
+        };
     };
 
     Element.prototype.getName = function() {
         return this.name;
-    };
-
-    Element.prototype.calledHowOften = function() {
-        return function() {
-            return (this.called += 1);
-        };
     };
     ns.Element = Element;
 })(this)
