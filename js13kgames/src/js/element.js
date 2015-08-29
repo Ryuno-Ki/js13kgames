@@ -1,6 +1,6 @@
 (function(window) {
     "use strict";
-    var ns, ElectronicElement, SwitchElement, circuitIsClosed;
+    var ns, ElectronicElement, SwitchElement, circuitIsClosed, renderCircuitLogic;
 
     // FIXME: Use utils module!
     var inherit;
@@ -155,6 +155,35 @@
         });
     };
 
+    renderCircuitLogic = function(elements) {
+        var closedElements, logic, i, len, current, next;
+
+        // Map ElectronicElement instances to Array of booleans according to their isClosed
+        closedElements = elements.map(function(el) {
+            if (!(el instanceof ElectronicElement)) {
+                // TODO: Move into errors.js
+                throw {
+                    name: "ElectronicElementError",
+                    message: "Must be an instance of ElectronicElement!",
+                    toString: function() {
+                        return this.name + ": " + this.message;
+                    }
+                };
+            }
+            return el.isClosed();
+        });
+
+        // Concat every isClosed() return value
+        logic = +closedElements[0];
+        for (i = 0, len = closedElements.length - 1; i < len; i += 1) {
+            current = closedElements[i];
+            next = closedElements[i+1];
+            logic += ' \u2227 ' + Number(next);
+        }
+        logic += ' = ' + Number(circuitIsClosed(elements));
+        return logic;
+    };
+
     window.JS13KBP = window.JS13KBP || {};
 
     /* API */
@@ -162,7 +191,8 @@
     ns.element = {
         ElectronicElement: ElectronicElement,
         SwitchElement: SwitchElement,
-        circuitIsClosed: circuitIsClosed
+        circuitIsClosed: circuitIsClosed,
+        renderCircuitLogic: renderCircuitLogic
     };
     return ns;
 })(this);
