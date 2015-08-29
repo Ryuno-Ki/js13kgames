@@ -110,7 +110,15 @@ module.exports = (grunt) ->
                     'cssmin'
                     'uglify'
                     'jshint'
+                    'mocha-chai-sinon'
                     'maxFilesize'
+                ]
+            test:
+                files: [
+                    'test/**/*.spec.js'
+                ]
+                tasks: [
+                    'mocha-chai-sinon'
                 ]
 
     # Load the plugins
