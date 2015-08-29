@@ -1,9 +1,66 @@
 (function(window) {
     "use strict";
-    var ns, ElectronicElement, eeProto, SwitchElement, seProto, circuitIsClosed, renderCircuitLogic;
+    var ns,
+        ElectronicElement,
+        eeProto,
+        SwitchElement,
+        seProto,
+        PowerSourceElement,
+        pseProto,
+        circuitIsClosed,
+        renderCircuitLogic;
 
     // FIXME: Use utils module!
-    var inherit, ElectronicElementError;
+    var inherit, extendDeep, mix, inputSlotMixin, outputSlotMixin, ElectronicElementError;
+
+    // FIXME: Use utils.inherit, utils.extendDeep, utils.mix and errors.ElectronicElementError!
+    inherit = (function() {
+        var Proxy;
+        Proxy = function() {};  // Temporary constructor, created only once
+        return function(Child, Parent) {
+            Proxy.prototype = Parent.prototype;
+            Child.prototype = new Proxy();  // Only inherit prototype methods
+            Child.superior = Parent.prototype;  // For access to the super class
+            Child.prototype.constructor = Child;  // For introspection purposes
+        };
+    })();
+
+    extendDeep = function(parent, child) {
+        var prop, toStr, p;
+
+        toStr = Object.prototype.toString;
+        child = child || {};
+
+        for (prop in parent) {
+            if (parent.hasOwnProperty(prop)) {
+                p = parent[prop];
+                if (typeof p === "object") {
+                    child[prop] = Array.isArray(p) ? [] : {};
+                    extendDeep(p, child[prop]);
+                } else {
+                    child[prop] = parent[prop];
+                }
+            }
+        }
+        return child;
+    };
+
+    mix = function() {
+        var i, arg, len, prop, child;
+
+        child = {};
+
+        for (i = 0, len = arguments.length; i < len; i += 1) {
+            arg = arguments[i];
+            for (prop in arg) {
+                if (arg.hasOwnProperty(prop)) {
+                    child[prop] = arg[prop];
+                }
+            }
+        }
+
+        return child;
+    };
 
     ElectronicElementError = {
         name: "ElectronicElementError",
@@ -12,6 +69,40 @@
             return this.name + ": " + this.message;
         }
     };
+
+    inputSlotMixin = {
+        setInput: function(element) {
+            if (!(element instanceof ElectronicElement)) {
+                // TODO: Move into errors.js
+                throw ElectronicElementError;
+            }
+            this._input = element;
+        },
+        getInput: function() {
+            return this._input;
+        },
+        hasInput: function() {
+            return this._input !== null;
+        }
+    };
+
+    outputSlotMixin = {
+        setOutput: function(element) {
+            if (!(element instanceof ElectronicElement)) {
+                // TODO: Move into errors.js
+                throw ElectronicElementError;
+            }
+            this._output = element;
+        },
+        getOutput: function() {
+            return this._output;
+        },
+        hasOutput: function() {
+            return this._output !== null;
+        }
+
+    };
+
     /**
      * Describes abstract parent class for all construction elements.
      */
@@ -50,6 +141,14 @@
         return this._type;
     };
 
+    eeProto.hasInput = function() {
+        return false;
+    };
+
+    eeProto.hasOutput = function() {
+        return false;
+    };
+
     eeProto.renderSelf = function(node) {
         var img, that;
 
@@ -57,18 +156,6 @@
         img = "<img src='build/" + that._icon + "' alt='" + that._type + ": " + that._name + "' />";
         node.innerHTML += img;
     };
-
-    // FIXME: Use utils.inherit!
-    inherit = (function() {
-        var Proxy;
-        Proxy = function() {};  // Temporary constructor, created only once
-        return function(Child, Parent) {
-            Proxy.prototype = Parent.prototype;
-            Child.prototype = new Proxy();  // Only inherit prototype methods
-            Child.superior = Parent.prototype;  // For access to the super class
-            Child.prototype.constructor = Child;  // For introspection purposes
-        };
-    })();
 
     SwitchElement = function(name) {
         // Ensure being called with `new`
@@ -110,44 +197,42 @@
         node.innerHTML += img;
     };
 
-    seProto.setInput = function(element) {
-        if (!(element instanceof ElectronicElement)) {
-            // TODO: Move into errors.js
-            throw ElectronicElementError;
-        }
-        this._input = element;
-    };
-
-    seProto.getInput = function() {
-        return this._input;
-    };
-
-    seProto.setOutput = function(element) {
-        if (!(element instanceof ElectronicElement)) {
-            // TODO: Move into errors.js
-            throw ElectronicElementError;
-        }
-        this._output = element;
-    };
-
-    seProto.getOutput = function() {
-        return this._output;
-    };
+    extendDeep(mix(inputSlotMixin, outputSlotMixin), seProto);
 
     seProto.useSwitch = function() {
         this._closed = !this._closed;
     };
 
+    PowerSourceElement = function(name) {
+        var that;
+
+        // Ensure being called with `new`
+        if (!(this instanceof PowerSourceElement)) {
+            return new PowerSourceElement(name);
+        }
+
+        that = this;
+        that._output = null;
+    };
+    inherit(PowerSourceElement, ElectronicElement);
+
+    pseProto = PowerSourceElement.prototype;
+    extendDeep(outputSlotMixin, pseProto);
+
     circuitIsClosed = function(elements) {
-        var closedElements, isClosed;
+        var closedElements;
 
         // Map ElectronicElement instances to Array of booleans according to their isClosed
         closedElements = elements.map(function(el) {
+            var isClosed, hasInput, hasOutput;
             if (!(el instanceof ElectronicElement)) {
                 // TODO: Move into errors.js
                 throw ElectronicElementError;
             }
-            return el.isClosed();
+            isClosed = el.isClosed();
+            hasInput = el.getInput() !== null;
+            hasOutput = el.getOutput() !== null;
+            return isClosed && hasInput && hasOutput;
         });
 
         // Concat every isClosed() return value
@@ -167,17 +252,15 @@
 
         // Map ElectronicElement instances to Array of booleans according to their isClosed
         closedElements = elements.map(function(el) {
+            var isClosed, hasInput, hasOutput;
             if (!(el instanceof ElectronicElement)) {
                 // TODO: Move into errors.js
-                throw {
-                    name: "ElectronicElementError",
-                    message: "Must be an instance of ElectronicElement!",
-                    toString: function() {
-                        return this.name + ": " + this.message;
-                    }
-                };
+                throw ElectronicElementError;
             }
-            return el.isClosed();
+            isClosed = el.isClosed();
+            hasInput = el.getInput() !== null;
+            hasOutput = el.getOutput() !== null;
+            return isClosed && hasInput && hasOutput;
         });
 
         // Concat every isClosed() return value
@@ -198,6 +281,7 @@
     ns.element = {
         ElectronicElement: ElectronicElement,
         SwitchElement: SwitchElement,
+        PowerSourceElement: PowerSourceElement,
         circuitIsClosed: circuitIsClosed,
         renderCircuitLogic: renderCircuitLogic
     };
