@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg"
+     id="onoffswitch" width="100" height="100" viewBox="0 0 100 100">
+    <g fill="none" transform="translate(-532.017,-57.398)">
+        <path d="m 566.52752,102.9877 7.0866,0"
+              style="fill:none;stroke:#000000;stroke-width:3.54330897;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        <path d="m 616.13382,102.9877 7.0866,0"
+              style="fill:none;stroke:#000000;stroke-width:3.5433073;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        <circle r="15.373666" cx="268.18506" cy="190.46263"
+                transform="matrix(0.248134,0.248134,-0.248134,0.248134,561.415,-10.8183)"
+                style="fill:none;stroke:#000000;stroke-width:6.0584116;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        <circle r="15.373666" cx="268.18506" cy="190.46263"
+                transform="matrix(0.248134,0.248134,-0.248134,0.248134,589.761,-10.8183)"
+                style="fill:none;stroke:#000000;stroke-width:6.0584116;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        <path d="M 587.50978,101.02376 607.9369,95.131921"
+              style="fill:none;stroke:#000000;stroke-width:3.54330897;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+</svg>

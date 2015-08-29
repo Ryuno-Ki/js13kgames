@@ -65,6 +65,7 @@
         SwitchElement.count += 1;
         this._name = name + '-' + SwitchElement.count;
         this._type = 'switch';
+        this._icon = 'switch.svg';
     };
 
     // Static methods

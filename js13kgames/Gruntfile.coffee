@@ -34,7 +34,7 @@ module.exports = (grunt) ->
                         {removeEmptyAttrs: false}
                     ]
                 files:
-                    'build/img.svg': 'src/img.svg'
+                    'build/switch.svg': 'src/svg/switch.svg'
 
         jsdoc:
             doc:
@@ -137,6 +137,7 @@ module.exports = (grunt) ->
     # Default task(s).
     grunt.registerTask 'default', [
         'cssmin'
+        'imagemin'
         'uglify'
         'maxFilesize'
         'watch'
