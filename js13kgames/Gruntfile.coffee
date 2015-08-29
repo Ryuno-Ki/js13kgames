@@ -39,7 +39,7 @@ module.exports = (grunt) ->
         jsdoc:
             doc:
                 src: [
-                    'src/*.js'
+                    'src/js/*.js'
                 ]
                 dest: 'docs/'
                 options:
@@ -47,7 +47,7 @@ module.exports = (grunt) ->
 
         jshint:
             beforeconcat: [
-                'src/*.js'
+                'src/js/*.js'
             ]
             # afterconcat: [
             #     'build/<%= pkg.name %>.min.js'
@@ -92,18 +92,18 @@ module.exports = (grunt) ->
                     sourceMap: true
                 files:
                     'build/<%= pkg.name %>.min.js': [
-                        'src/utils.js'
-                        'src/pubsub.js'
-                        'src/errors.js'
-                        'src/element.js'
-                        'src/modules.js'
-                        'src/<%= pkg.name %>.js'
+                        'src/js/utils.js'
+                        'src/js/pubsub.js'
+                        'src/js/errors.js'
+                        'src/js/element.js'
+                        'src/js/modules.js'
+                        'src/js/<%= pkg.name %>.js'
                     ]
 
         watch:
             scripts:
                 files: [
-                    'src/*.js'
+                    'src/js/*.js'
                     'src/*.css'
                 ]
                 tasks: [
