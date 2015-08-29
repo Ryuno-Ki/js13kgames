@@ -1,14 +1,14 @@
 (function(global, app) {
     "use strict";
     // Now app === global.JS13KBP
-    global.JS13KBP = (function() {
-        var utils, myUtils;
+    //global.JS13KBP = (function() {
+        var js13kUtils, utils, myUtils;
 
         // Dependencies
-        js13kUtils = global.JS13KBP.utils;
+        js13kUtils = global.JS13KBP.utils || {};
 
         // Private stuff, using e.g. js13kUtils
-        var myUtils = "load module here";
+        myUtils = "load module here";
 
         // Public API
         return {
@@ -16,5 +16,5 @@
                 return myUtils;
             }
         }
-    })();
-})(this, JS13kBP)
+    //})();
+})(this, JS13KBP)
