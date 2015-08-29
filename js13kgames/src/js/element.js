@@ -160,8 +160,8 @@
         var closedElements, logic, logicMap, i, len, current, next;
 
         logicMap = {
-            and: '\u2227;',
-            or: '\u2228;',
+            and: '\u2227',
+            or: '\u2228',
             not: '\u00AC'
         };
 
