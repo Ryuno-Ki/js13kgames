@@ -44,7 +44,7 @@
             fetchSize(addr, pushToSizes);
         }
         setTimeout(function() {
-            var size, i, len, prop, p, sum;
+            var size, i, len, prop, p, sum, total;
 
             sum = 0;
             for (i = 0, len = sizes.length; i < len; i += 1) {
@@ -58,7 +58,8 @@
                     }
                 }
             }
-            document.body.appendChild(document.createTextNode('Gesamt: ' + sum + ' (' + 100 * sum/13312 + ' %)'));
+            total = 'Gesamt: ' + sum + ' (' + (100 * sum/(13 * 1024)).toFixed(2) + ' %)';
+            document.body.appendChild(document.createTextNode(total));
         }, 1000);
     }, false);
 })(this);
