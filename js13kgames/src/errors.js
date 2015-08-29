@@ -13,4 +13,4 @@
         message: "NotImplementedYet!",
         remedy: genericErrorHandler
     };
-})(this)
+})(this);

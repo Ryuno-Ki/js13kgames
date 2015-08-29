@@ -23,7 +23,7 @@
         // Private members
         var feature, called;
 
-        this.name = name;
+        this._name = name;
         called = 0;
 
         // feature is truly private here
@@ -39,7 +39,7 @@
     };
 
     Element.prototype.getName = function() {
-        return this.name;
+        return this._name;
     };
     ns.Element = Element;
-})(this)
+})(this);

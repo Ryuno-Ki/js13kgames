@@ -154,7 +154,7 @@
                 p = parent[prop];
                 if (typeof p === "object") {
                     child[prop] = Array.isArray(p) ? [] : {};
-                    extendDeep(p, child[prop]);
+                    utils.extendDeep(p, child[prop]);
                 } else {
                     child[prop] = parent[prop];
                 }
@@ -181,4 +181,4 @@
 
         return child;
     };
-})(this)
+})(this);

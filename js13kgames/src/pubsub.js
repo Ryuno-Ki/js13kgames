@@ -5,7 +5,7 @@
     pubsub = {
         publisher: null,
         makePublisher: null
-    }
+    };
 
     pubsub.publisher = {
         subscribers: {
@@ -75,10 +75,10 @@
 
         for (prop in publisher) {
             if (publisher.hasOwnProperty(prop) && typeof publisher[prop] === "function") {
-                obj[prop] = pubslisher[prop];
+                obj[prop] = publisher[prop];
             }
         }
 
         obj.subscribers = {any: []};
     };
-})(this)
+})(this);

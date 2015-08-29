@@ -49,9 +49,9 @@ module.exports = (grunt) ->
             beforeconcat: [
                 'src/*.js'
             ]
-            afterconcat: [
-                'build/<%= pkg.name %>.min.js'
-            ]
+            # afterconcat: [
+            #     'build/<%= pkg.name %>.min.js'
+            # ]
             options:
                 jshintrc: true
 
@@ -109,6 +109,7 @@ module.exports = (grunt) ->
                 tasks: [
                     'cssmin'
                     'uglify'
+                    'jshint'
                     'maxFilesize'
                 ]
 

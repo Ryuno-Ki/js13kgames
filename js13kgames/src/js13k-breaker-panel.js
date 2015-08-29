@@ -7,4 +7,4 @@
     element = app.element;
 
     schalter = new element.Element("schalter");
-})(this)
+})(this);

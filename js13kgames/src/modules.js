@@ -15,6 +15,6 @@
             utils: function() {
                 return myUtils;
             }
-        }
+        };
     //})();
-})(this, JS13KBP)
+})(this, this.JS13KBP);
