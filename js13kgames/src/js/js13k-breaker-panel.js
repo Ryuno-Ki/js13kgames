@@ -15,9 +15,7 @@
     switchElement.setInput(se);
     se.setInput(e);
 
-    console.log(element.renderCircuitLogic([switchElement, se, e]));
-
     logic = document.createElement('span');
-    logic.innerHTML = 'UND: &and; (u2227) ODER: &or; (u2228) NICHT: &not; (u00AC)';
+    logic.innerHTML += element.renderCircuitLogic([switchElement, se, e]);
     game.appendChild(logic);
 })(this);

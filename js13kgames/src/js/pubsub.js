@@ -1,13 +1,8 @@
-(function(global) {
+(function(window) {
     'use strict';
-    var pubsub;
+    var publisher, makePublisher, ns;
 
-    pubsub = {
-        publisher: null,
-        makePublisher: null
-    };
-
-    pubsub.publisher = {
+    publisher = {
         subscribers: {
             any: []
         },
@@ -68,10 +63,8 @@
     // pub.method1();
     // pub.methods2();
     // pub can subscribe to sub to, when those became publisher!
-    pubsub.makePublisher = function(obj) {
-        var prop, publisher;
-
-        publisher = pubsub.publisher;
+    makePublisher = function(obj) {
+        var prop;
 
         for (prop in publisher) {
             if (publisher.hasOwnProperty(prop) && typeof publisher[prop] === "function") {
@@ -80,5 +73,14 @@
         }
 
         obj.subscribers = {any: []};
+    };
+
+    window.JS13KBP = window.JS13KBP || {};
+
+    /* API */
+    ns = window.JS13KBP;
+    ns.pubsub = {
+        publisher: publisher,
+        makePublisher: makePublisher
     };
 })(this);

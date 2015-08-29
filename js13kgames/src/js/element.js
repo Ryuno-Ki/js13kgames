@@ -1,10 +1,17 @@
 (function(window) {
     "use strict";
-    var ns, ElectronicElement, SwitchElement, circuitIsClosed, renderCircuitLogic;
+    var ns, ElectronicElement, eeProto, SwitchElement, seProto, circuitIsClosed, renderCircuitLogic;
 
     // FIXME: Use utils module!
-    var inherit;
+    var inherit, ElectronicElementError;
 
+    ElectronicElementError = {
+        name: "ElectronicElementError",
+        message: "Must be an instance of ElectronicElement!",
+        toString: function() {
+            return this.name + ": " + this.message;
+        }
+    };
     /**
      * Describes abstract parent class for all construction elements.
      */
@@ -15,16 +22,17 @@
         }
 
         // Private members
-        var feature, called;
+        var feature, called, that;
 
+        that = this;
         ElectronicElement.count += 1;
-        this._name = name + '-' + ElectronicElement.count;
-        this._type = 'element';
+        that._name = name + '-' + ElectronicElement.count;
+        that._type = 'element';
 
         // feature is truly private here
         // Doesn't work with Arrays and Objects (passed by reference!)
         feature = 'sizzles';
-        this.getFeature = function() {
+        that.getFeature = function() {
             return feature;
         };
     };
@@ -33,18 +41,20 @@
     ElectronicElement.count = 0;
 
     // Instance methods
-    ElectronicElement.prototype.getName = function() {
+    eeProto = ElectronicElement.prototype;
+    eeProto.getName = function() {
         return this._name;
     };
 
-    ElectronicElement.prototype.getType = function() {
+    eeProto.getType = function() {
         return this._type;
     };
 
-    ElectronicElement.prototype.renderSelf = function(node) {
-        var img;
+    eeProto.renderSelf = function(node) {
+        var img, that;
 
-        img = "<img src='build/" + this._icon + "' alt='" + this._type + ": " + this._name + "' />";
+        that = this;
+        img = "<img src='build/" + that._icon + "' alt='" + that._type + ": " + that._name + "' />";
         node.innerHTML += img;
     };
 
@@ -67,67 +77,59 @@
         }
 
         // Private members
-        var feature, called;
+        var feature, called, that;
 
         SwitchElement.count += 1;
-        this._name = name + '-' + SwitchElement.count;
-        this._type = 'switch';
-        this._state = 'closed';
-        this._icon = 'switch';
+        that = this;
+        that._name = name + '-' + SwitchElement.count;
+        that._type = 'switch';
+        that._state = 'closed';
+        that._icon = 'switch';
 
-        this._input = null;
-        this._output = null;
+        that._input = null;
+        that._output = null;
     };
 
     inherit(SwitchElement, ElectronicElement);
     // Static methods
     SwitchElement.count = 0;
 
-    SwitchElement.prototype.isClosed = function() {
+    seProto = SwitchElement.prototype;
+    seProto.isClosed = function() {
         return this._state === 'closed';
     };
 
-    SwitchElement.prototype.renderSelf = function(node) {
-        var img;
+    seProto.renderSelf = function(node) {
+        var img, that;
 
-        img = "<img src='build/" + this._icon + "-" + this._state + ".svg' ";
-        img += "alt='" + this._type + "-" + this._state + ": " + this._name + "' />";
+        that = this;
+
+        img = "<img src='build/" + that._icon + "-" + that._state + ".svg' ";
+        img += "alt='" + that._type + "-" + that._state + ": " + that._name + "' />";
         node.innerHTML += img;
     };
 
-    SwitchElement.prototype.setInput = function(element) {
+    seProto.setInput = function(element) {
         if (!(element instanceof ElectronicElement)) {
             // TODO: Move into errors.js
-            throw {
-                name: "ElectronicElementError",
-                message: "Must be an instance of ElectronicElement!",
-                toString: function() {
-                    return this.name + ": " + this.message;
-                }
-            };
+            throw ElectronicElementError;
         }
         this._input = element;
     };
 
-    SwitchElement.prototype.getInput = function() {
+    seProto.getInput = function() {
         return this._input;
     };
 
-    SwitchElement.prototype.setOutput = function(element) {
+    seProto.setOutput = function(element) {
         if (!(element instanceof ElectronicElement)) {
             // TODO: Move into errors.js
-            throw {
-                name: "ElectronicElementError",
-                message: "Must be an instance of ElectronicElement!",
-                toString: function() {
-                    return this.name + ": " + this.message;
-                }
-            };
+            throw ElectronicElementError;
         }
         this._output = element;
     };
 
-    SwitchElement.prototype.getOutput = function() {
+    seProto.getOutput = function() {
         return this._output;
     };
 
@@ -138,13 +140,7 @@
         closedElements = elements.map(function(el) {
             if (!(el instanceof ElectronicElement)) {
                 // TODO: Move into errors.js
-                throw {
-                    name: "ElectronicElementError",
-                    message: "Must be an instance of ElectronicElement!",
-                    toString: function() {
-                        return this.name + ": " + this.message;
-                    }
-                };
+                throw ElectronicElementError;
             }
             return el.isClosed();
         });
@@ -156,7 +152,13 @@
     };
 
     renderCircuitLogic = function(elements) {
-        var closedElements, logic, i, len, current, next;
+        var closedElements, logic, logicMap, i, len, current, next;
+
+        logicMap = {
+            and: '\u2227;',
+            or: '\u2228;',
+            not: '\u00AC'
+        };
 
         // Map ElectronicElement instances to Array of booleans according to their isClosed
         closedElements = elements.map(function(el) {
@@ -178,7 +180,7 @@
         for (i = 0, len = closedElements.length - 1; i < len; i += 1) {
             current = closedElements[i];
             next = closedElements[i+1];
-            logic += ' \u2227 ' + Number(next);
+            logic += ' ' + logicMap.and + ' ' + Number(next);
         }
         logic += ' = ' + Number(circuitIsClosed(elements));
         return logic;
