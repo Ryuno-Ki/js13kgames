@@ -1,10 +1,10 @@
 (function(global) {
     "use strict";
-    var app, element, schalter;
+    var app, element, switchElement;
 
     // Shorthands
     app = global.JS13KBP;
     element = app.element;
 
-    schalter = new element.ElectronicElement("schalter");
+    switchElement = new element.SwitchElement("switchElement");
 })(this);
