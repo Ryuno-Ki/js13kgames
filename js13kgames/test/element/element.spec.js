@@ -3,15 +3,15 @@ var ns = require('../../src/js/element.js');
 console.log("Spec", ns, utils);
 var element = ns.JS13KBP.element;
 
-describe('Element', function() {
+describe('ElectronicElement', function() {
     var el;
 
     it('should have a constructor', function() {
-        expect(element.Element).to.be.a("function");
+        expect(element.ElectronicElement).to.be.a("function");
     });
 
     beforeEach(function() {
-        el = new element.Element("switch");
+        el = new element.ElectronicElement("switch");
     });
 
     it('should have a name', function() {
@@ -20,9 +20,9 @@ describe('Element', function() {
 
     it('should count the instances', function() {
         var numberOfElements, el2;
-        numberOfElements = element.Element.count;
-        el2 = new element.Element("hebel");
-        expect(element.Element.count).to.be.greaterThan(numberOfElements);
+        numberOfElements = element.ElectronicElement.count;
+        el2 = new element.ElectronicElement("hebel");
+        expect(element.ElectronicElement.count).to.be.greaterThan(numberOfElements);
     });
 
     it('should save its type', function() {

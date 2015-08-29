@@ -1,6 +1,6 @@
 (function(window) {
     "use strict";
-    var ns, Element, SwitchElement;
+    var ns, ElectronicElement, SwitchElement;
 
     // FIXME: Use utils module!
     var inherit;
@@ -8,17 +8,17 @@
     /**
      * Describes abstract parent class for all construction elements.
      */
-    Element = function Element(name) {
+    ElectronicElement = function ElectronicElement(name) {
         // Ensure being called with `new`
-        if (!(this instanceof Element)) {
-            return new Element();
+        if (!(this instanceof ElectronicElement)) {
+            return new ElectronicElement(name);
         }
 
         // Private members
         var feature, called;
 
-        Element.count += 1;
-        this._name = name + '-' + Element.count;
+        ElectronicElement.count += 1;
+        this._name = name + '-' + ElectronicElement.count;
         this._type = 'element';
 
         // feature is truly private here
@@ -30,18 +30,18 @@
     };
 
     // Static methods
-    Element.count = 0;
+    ElectronicElement.count = 0;
 
     // Instance methods
-    Element.prototype.getName = function() {
+    ElectronicElement.prototype.getName = function() {
         return this._name;
     };
 
-    Element.prototype.getType = function() {
+    ElectronicElement.prototype.getType = function() {
         return this._type;
     };
 
-    Element.prototype.renderSelf = function(node) {
+    ElectronicElement.prototype.renderSelf = function(node) {
         var img;
 
         img = "<img src='build/" + this._icon + "' alt='" + this._type + ": " + this._name + "' />";
@@ -74,9 +74,12 @@
         this._type = 'switch';
         this._state = 'closed';
         this._icon = 'switch';
+
+        this._input = null;
+        this._output = null;
     };
 
-    inherit(SwitchElement, Element);
+    inherit(SwitchElement, ElectronicElement);
     // Static methods
     SwitchElement.count = 0;
 
@@ -92,12 +95,48 @@
         node.innerHTML += img;
     };
 
+    SwitchElement.prototype.setInput = function(element) {
+        if (!(element instanceof ElectronicElement)) {
+            // TODO: Move into errors.js
+            throw {
+                name: "ElectronicElementError",
+                message: "Must be an instance of ElectronicElement!",
+                toString: function() {
+                    return this.name + ": " + this.message;
+                }
+            };
+        }
+        this._input = element;
+    };
+
+    SwitchElement.prototype.getInput = function() {
+        return this._input;
+    };
+
+    SwitchElement.prototype.setOutput = function(element) {
+        if (!(element instanceof ElectronicElement)) {
+            // TODO: Move into errors.js
+            throw {
+                name: "ElectronicElementError",
+                message: "Must be an instance of ElectronicElement!",
+                toString: function() {
+                    return this.name + ": " + this.message;
+                }
+            };
+        }
+        this._output = element;
+    };
+
+    SwitchElement.prototype.getOutput = function() {
+        return this._output;
+    };
+
     window.JS13KBP = window.JS13KBP || {};
 
     /* API */
     ns = window.JS13KBP;
     ns.element = {
-        Element: Element,
+        ElectronicElement: ElectronicElement,
         SwitchElement: SwitchElement
     };
     return ns;

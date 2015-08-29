@@ -6,5 +6,5 @@
     app = global.JS13KBP;
     element = app.element;
 
-    schalter = new element.Element("schalter");
+    schalter = new element.ElectronicElement("schalter");
 })(this);
