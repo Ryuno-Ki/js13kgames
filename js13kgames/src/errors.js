@@ -1,6 +1,8 @@
 (function(global) {
     "use strict";
-    var AbstractError;
+    var AbstractError, genericErrorHandler;
+
+    genericErrorHandler = function genericErrorHandler(error) {};
 
     /**
      * To be parent object of my error objects.
