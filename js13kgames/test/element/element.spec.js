@@ -1,7 +1,8 @@
-describe('Element', function() {
-    var answer = 42;
+var ns = require('../../src/element.js');
+var element = ns.JS13KBP.element;
 
-    it('should just work', function() {
-        expect(answer).to.equal(42);
+describe('Element', function() {
+    it('should have a constructor', function() {
+        expect(element.Element).to.be.a("function");
     });
 });
