@@ -14,4 +14,4 @@ Sadly DOM access is tricky to do (if you want to avoid jQuery dependencies), so 
 
 ## LICENSE
 
-GPL v3. See [LICENSE](/LICENSE.md) for more details.
+GPL v3. See [LICENSE](LICENSE.md) for more details.
