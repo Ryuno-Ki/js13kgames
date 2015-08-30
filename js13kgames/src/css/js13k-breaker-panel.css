@@ -5,6 +5,17 @@ body {
 
 #fork-on-github {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 4em;
+    right: -3em;
+    transform: rotate(45deg);
+}
+
+#fork-on-github a {
+    color: white;
+    background: black;
+    display: block;
+    width: 15em;
+    padding: 0.5em;
+    text-align: center;
+    text-decoration: none;
 }
