@@ -73,6 +73,33 @@ describe('SwitchElement', function() {
         el = new element.SwitchElement(name);
     });
 
+    it('should have a name', function() {
+        expect(el.getName()).to.contain(name);
+    });
+
+    it('should be able to deal with spaces as name, too', function() {
+        var words, word, i, len;
+        name = "my super fancy element";
+        el = new element.SwitchElement(name);
+        words = name.split();
+        for (i = 0, len = words.length; i < len; i += 1) {
+            word = words[i];
+            expect(el.getName()).to.contain(word);
+        }
+    });
+
+    it('should count the instances', function() {
+        var numberOfElements, el2;
+        numberOfElements = element.SwitchElement.count;
+        el2 = new element.SwitchElement("hebel");
+        expect(element.SwitchElement.count).to.equal(numberOfElements + 1);
+    });
+
+    it('should save its type', function() {
+        expect(el.getType()).to.equal('switch');
+    });
+
+
     it('should inherit from ElectronicElement', function() {
         expect(el instanceof element.SwitchElement).to.be.true;
         expect(el instanceof element.ElectronicElement).to.be.true;
@@ -100,6 +127,7 @@ describe('SwitchElement', function() {
 
     it('should only accept ElectronicElements as input element', function() {
         var err, el2;
+        // TODO: Import from errors.js!
         err = {
             name: "ElectronicElementError"
         };
@@ -136,6 +164,33 @@ describe("Power source", function() {
         el = new element.PowerSourceElement(name);
     });
 
+    it('should have a name', function() {
+        expect(el.getName()).to.contain(name);
+    });
+
+    it('should be able to deal with spaces as name, too', function() {
+        var words, word, i, len;
+        name = "my super fancy element";
+        el = new element.PowerSourceElement(name);
+        words = name.split();
+        for (i = 0, len = words.length; i < len; i += 1) {
+            word = words[i];
+            expect(el.getName()).to.contain(word);
+        }
+    });
+
+    it('should count the instances', function() {
+        var numberOfElements, el2;
+        numberOfElements = element.PowerSourceElement.count;
+        el2 = new element.PowerSourceElement("hebel");
+        expect(element.PowerSourceElement.count).to.equal(numberOfElements + 1);
+    });
+
+    it('should save its type', function() {
+        expect(el.getType()).to.equal('power-source');
+    });
+
+
     it('should inherit from ElectronicElement', function() {
         expect(el instanceof element.PowerSourceElement).to.be.true;
         expect(el instanceof element.ElectronicElement).to.be.true;
@@ -164,6 +219,33 @@ describe("ConsumerElement", function() {
     beforeEach(function() {
         el = new element.ConsumerElement(name);
     });
+
+    it('should have a name', function() {
+        expect(el.getName()).to.contain(name);
+    });
+
+    it('should be able to deal with spaces as name, too', function() {
+        var words, word, i, len;
+        name = "my super fancy element";
+        el = new element.ConsumerElement(name);
+        words = name.split();
+        for (i = 0, len = words.length; i < len; i += 1) {
+            word = words[i];
+            expect(el.getName()).to.contain(word);
+        }
+    });
+
+    it('should count the instances', function() {
+        var numberOfElements, el2;
+        numberOfElements = element.ConsumerElement.count;
+        el2 = new element.ConsumerElement("hebel");
+        expect(element.ConsumerElement.count).to.equal(numberOfElements + 1);
+    });
+
+    it('should save its type', function() {
+        expect(el.getType()).to.equal('consumer');
+    });
+
 
     it("should inherit from ElectronicElement", function() {
         expect(el instanceof element.ConsumerElement).to.be.true;

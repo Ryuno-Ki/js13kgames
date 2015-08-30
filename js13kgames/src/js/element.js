@@ -234,11 +234,15 @@
             return new PowerSourceElement(name);
         }
 
+        PowerSourceElement.count += 1;
         that = this;
+        that._name = name + '-' + PowerSourceElement.count;
         that._type = 'power-source';
         that._output = null;
     };
     inherit(PowerSourceElement, ElectronicElement);
+
+    PowerSourceElement.count = 0;
 
     pseProto = PowerSourceElement.prototype;
     extendDeep(outputSlotMixin, pseProto);
@@ -251,11 +255,17 @@
             return new ConsumerElement(name);
         }
 
+        ConsumerElement.count += 1;
+
+        that = this;
+        that._name = name + '-' + ConsumerElement.count;
         that = this;
         that._type = 'consumer';
         that._input = null;
     };
     inherit(ConsumerElement, ElectronicElement);
+
+    ConsumerElement.count = 0;
 
     ceProto = ConsumerElement.prototype;
     extendDeep(inputSlotMixin, ceProto);
