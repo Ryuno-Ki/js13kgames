@@ -35,6 +35,7 @@
     "grunt-mocha-chai-sinon": "0.0.9",
     "grunt-notify": "^0.4.1",
     "grunt-processhtml": "^0.3.8",
+    "jsdom": "^3.1.2",
     "time-grunt": "^1.2.1"
   }
 }

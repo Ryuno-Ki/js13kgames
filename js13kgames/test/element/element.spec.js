@@ -1,8 +1,13 @@
+// Mock DOM
+var jsdom = require('jsdom').jsdom;
+global.document = jsdom('<html><head></head><body></body></html>');
+global.window = document.parentWindow;
+
 var ns = require('../../src/js/element.js');
 var element = ns.JS13KBP.element;
 
 describe('ElectronicElement', function() {
-    var el, name;
+    var el, name, sandbox;
 
     name = "electronic";
 
@@ -12,6 +17,13 @@ describe('ElectronicElement', function() {
 
     beforeEach(function() {
         el = new element.ElectronicElement(name);
+        sandbox = sinon.sandbox.create();
+
+        sandbox.stub(window.console, "log");
+    });
+
+    afterEach(function() {
+        sandbox.restore();
     });
 
     it('should have a name', function() {
@@ -50,13 +62,12 @@ describe('ElectronicElement', function() {
         expect(el.hasOutput()).to.be.false;
     });
 
-    xit('should render a DOM reprensation of itself', function() {
-        // TODO: Mock document
+    it('should render a DOM reprensation of itself', function() {
         var node;
 
-        node = document.body;
+        node = window.document.getElementsByTagName('body')[0];
         el.renderSelf(node);
-        expect(node.childElementCount).to.be.greaterThan(0);
+        expect(node.innerHTML).to.contain('img');
     });
 });
 
