@@ -101,8 +101,8 @@ describe('SwitchElement', function() {
 
 
     it('should inherit from ElectronicElement', function() {
-        expect(el instanceof element.SwitchElement).to.be.true;
-        expect(el instanceof element.ElectronicElement).to.be.true;
+        expect(el).to.be.an.instanceof(element.SwitchElement);
+        expect(el).to.be.an.instanceof(element.ElectronicElement);
     });
 
     it('should save its state', function() {
@@ -192,8 +192,8 @@ describe("Power source", function() {
 
 
     it('should inherit from ElectronicElement', function() {
-        expect(el instanceof element.PowerSourceElement).to.be.true;
-        expect(el instanceof element.ElectronicElement).to.be.true;
+        expect(el).to.be.an.instanceof(element.PowerSourceElement);
+        expect(el).to.be.an.instanceof(element.ElectronicElement);
     });
 
     it('should have no input slot', function() {
@@ -248,8 +248,8 @@ describe("ConsumerElement", function() {
 
 
     it("should inherit from ElectronicElement", function() {
-        expect(el instanceof element.ConsumerElement).to.be.true;
-        expect(el instanceof element.ElectronicElement).to.be.true;
+        expect(el).to.be.an.instanceof(element.ConsumerElement);
+        expect(el).to.be.an.instanceof(element.ElectronicElement);
     });
 
     it("should have an input slot", function() {
@@ -277,8 +277,8 @@ describe("Circuit", function() {
     });
 
     it("should inherit from ElectronicElement", function() {
-        expect(el instanceof element.CircuitElement).to.be.true;
-        expect(el instanceof element.ElectronicElement).to.be.true;
+        expect(el).to.be.an.instanceof(element.CircuitElement);
+        expect(el).to.be.an.instanceof(element.ElectronicElement);
     });
 
     it("should contain at least one power source", function() {
