@@ -1,6 +1,6 @@
 # JS13K-Breaker-Panel
 
-This is my attempt to take part at [js13kgames](http://www.js13kgames.com/) competition 2015.
+This is [my attempt](https://ryuno-ki.github.io/js13kgames/) to take part at [js13kgames](http://www.js13kgames.com/) competition 2015.
 
 In order to comply with the file size limit of 13k bytes, I am writing in plain ECMAScript 5.
 
