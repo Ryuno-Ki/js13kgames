@@ -19,3 +19,8 @@ body {
     text-align: center;
     text-decoration: none;
 }
+
+svg circle {
+    stroke: #006600;
+    fill: #CC0000;
+}
