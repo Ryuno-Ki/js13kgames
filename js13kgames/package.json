@@ -29,6 +29,7 @@
     "grunt-contrib-uglify": "^0.9.2",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-csscomb": "^1.2.0",
+    "grunt-fxos": "^0.1.2",
     "grunt-jsdoc": "^0.6.8",
     "grunt-max-filesize": "^0.1.0",
     "grunt-mocha": "^0.4.13",

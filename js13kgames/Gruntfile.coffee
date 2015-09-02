@@ -128,6 +128,7 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-contrib-uglify'
     grunt.loadNpmTasks 'grunt-contrib-watch'
     grunt.loadNpmTasks 'grunt-csscomb'
+    grunt.loadNpmTasks 'grunt-fxos'
     grunt.loadNpmTasks 'grunt-jsdoc'
     grunt.loadNpmTasks 'grunt-max-filesize'
     grunt.loadNpmTasks 'grunt-mocha-chai-sinon'
