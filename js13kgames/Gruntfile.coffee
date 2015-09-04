@@ -95,6 +95,7 @@ module.exports = (grunt) ->
                         'src/js/utils.js'
                         'src/js/pubsub.js'
                         'src/js/errors.js'
+                        'src/js/svg.js'
                         'src/js/element.js'
                         'src/js/modules.js'
                         'src/js/<%= pkg.name %>.js'

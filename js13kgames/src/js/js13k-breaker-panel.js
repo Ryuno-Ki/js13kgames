@@ -1,6 +1,6 @@
 (function(global) {
     "use strict";
-    var game, app, element, ps, switchElement, se, e, circuit, c, logic, svg, rect, circle;
+    var game, app, element, ps, switchElement, se, e, circuit, c, logic, svg, rect, circle, path;
 
     game = document.getElementById("game");
 
@@ -36,6 +36,11 @@
     svg.setAttribute("height", "100");
     game.appendChild(svg);
 
+    path = document.createElement('path');
+    path.setAttribute("stroke", "#000000");
+    path.setAttribute("stroke-width", "2");
+    path.setAttribute("d", "m 10 10 h 20 a 6 6, 0, 1, 1, 10 0");
+
     rect = document.createElement('rect');
     rect.setAttribute("x", "10");
     rect.setAttribute("y", "20");
@@ -49,5 +54,6 @@
 
     svg.appendChild(rect);
     svg.appendChild(circle);
+    svg.appendChild(path);
     svg.outerHTML = svg.outerHTML;  // Enforce repaint
 })(this);
