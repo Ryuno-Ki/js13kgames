@@ -69,7 +69,7 @@ module.exports = (grunt) ->
             test:
                 options:
                     ui: 'bdd'
-                    reporter: 'spec'
+                    reporter: 'dot'
                 src: ['test/**/*.spec.js']
 
         processhtml:
