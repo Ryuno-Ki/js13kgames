@@ -30,6 +30,8 @@
     // game.appendChild(logic);
 
     game.appendChild(svg.svg);
+    svg.svg.appendChild(svg.powerSource);
     svg.svg.appendChild(svg.switchElement);
+    svg.svg.appendChild(svg.consumer);
     svg.svg.outerHTML = svg.svg.outerHTML;  // Enforce repaint
 })(this);
