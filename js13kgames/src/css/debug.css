@@ -1,0 +1,9 @@
+#game svg,
+#game svg g {
+    border: 1px solid gray;
+}
+
+#game svg circle {
+    stroke: #006600;
+    fill: #CC0000;
+}

@@ -23,8 +23,3 @@ body {
 svg path {
     fill: #FFFFFF;
 }
-
-svg circle {
-    stroke: #006600;
-    fill: #CC0000;
-}
