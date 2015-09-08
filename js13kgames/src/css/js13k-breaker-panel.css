@@ -23,3 +23,14 @@ body {
 svg path {
     fill: #FFFFFF;
 }
+
+@keyframes live {
+    to {
+        stroke-dashoffset: 100;
+    }
+}
+
+#game svg .live {
+    stroke-dasharray: 5;
+    animation: live 5s linear reverse;
+}

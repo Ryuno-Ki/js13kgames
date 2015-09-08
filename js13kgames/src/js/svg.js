@@ -51,6 +51,7 @@
         inbound = document.createElement('path');
         inbound.setAttribute("stroke", "#000000");
         inbound.setAttribute("stroke-width", config.strokeWidth + "");
+        inbound.setAttribute("class", "live");
         inbound.setAttribute("d", "m " + config.boundingBox[0] + " " + leftBorderCenter + " h " + config.boundLength);
         g.appendChild(inbound);
 
@@ -63,6 +64,7 @@
         bridge = document.createElement('path');
         bridge.setAttribute("stroke", "#000000");
         bridge.setAttribute("stroke-width", config.strokeWidth + "");
+        bridge.setAttribute("class", "live");
         bridge.setAttribute("d", "m " + (config.boundingBox[0] + config.boundLength + 2 * config.strokeWidth) + " 50 l " + config.bridgeLength + " -" + config.strokeWidth);
         g.appendChild(bridge);
 
@@ -75,6 +77,7 @@
         outbound = document.createElement("path");
         outbound.setAttribute("stroke", "#000000");
         outbound.setAttribute("stroke-width", config.strokeWidth + "");
+        outbound.setAttribute("class", "live");
         outbound.setAttribute("d", "m " + (config.boundingBox[0] + config.boundLength + 2 * config.strokeWidth + config.bridgeLength + config.strokeWidth) + " 50 h " + config.boundLength);
         g.appendChild(outbound);
         return g;
@@ -96,6 +99,7 @@
         inbound = document.createElement('path');
         inbound.setAttribute("stroke", "#000000");
         inbound.setAttribute("stroke-width", config.strokeWidth + "");
+        inbound.setAttribute("class", "live");
         inbound.setAttribute('d', 'm ' + config.boundingBox[0] + ' ' + leftBorderCenter + ' h ' + config.boundLength);
         g.appendChild(inbound);
 
