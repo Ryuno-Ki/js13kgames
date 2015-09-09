@@ -6,6 +6,20 @@ module.exports = (grunt) ->
     grunt.initConfig
         pkg: grunt.file.readJSON 'package.json'
 
+        compress:
+            main:
+                options:
+                    archive: 'dist/game.zip'
+                files: [{
+                    expand: true
+                    src: [
+                        'index.html'
+                        'build/*.css'
+                        'build/*.js'
+                    ]
+                    dest: '/'
+                }]
+
         csscomb:
             sort:
                 files:
@@ -123,6 +137,7 @@ module.exports = (grunt) ->
                 ]
 
     # Load the plugins
+    grunt.loadNpmTasks 'grunt-contrib-compress'
     grunt.loadNpmTasks 'grunt-contrib-cssmin'
     grunt.loadNpmTasks 'grunt-contrib-imagemin'
     grunt.loadNpmTasks 'grunt-contrib-jshint'
