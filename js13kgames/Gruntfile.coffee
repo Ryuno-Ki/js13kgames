@@ -93,11 +93,11 @@ module.exports = (grunt) ->
                 files:
                     'build/<%= pkg.name %>.min.js': [
                         'src/js/utils.js'
-                        'src/js/pubsub.js'
-                        'src/js/errors.js'
+                        # 'src/js/pubsub.js'
+                        # 'src/js/errors.js'
                         'src/js/svg.js'
                         'src/js/element.js'
-                        'src/js/modules.js'
+                        # 'src/js/modules.js'
                         'src/js/<%= pkg.name %>.js'
                     ]
 

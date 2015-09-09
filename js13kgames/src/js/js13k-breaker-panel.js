@@ -30,8 +30,22 @@
     // game.appendChild(logic);
 
     game.appendChild(svg.svg);
-    svg.svg.appendChild(svg.powerSource);
-    svg.svg.appendChild(svg.switchElement);
-    svg.svg.appendChild(svg.consumer);
+    svg.svg.appendChild(svg.renderPowerSource({
+        id: ps.getType(),
+        bb: [0, 0, 25, 25],
+    }));
+    svg.svg.appendChild(svg.renderSwitchElement({
+        id: se.getType(),
+        bb: [25, 0, 50, 25],
+    }));
+    svg.svg.appendChild(svg.renderCable({
+        id: "cable",
+        inbound: [50, 12.5],
+        outbound: [75, 87.5],
+    }));
+    svg.svg.appendChild(svg.renderConsumer({
+        id: c.getType(),
+        bb: [75, 75, 100, 100],
+    }));
     svg.svg.outerHTML = svg.svg.outerHTML;  // Enforce repaint
 })(this);
