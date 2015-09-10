@@ -1,6 +1,6 @@
 (function(global) {
     "use strict";
-    var svg, svgProperties, prop, ns;
+    var svg, svgProperties, prop, ns, dnd;
     var renderPowerSource, renderSwitchElement, renderCable, renderConsumer;
 
     svg = document.createElement('svg');
@@ -16,6 +16,63 @@
             svg.setAttribute(prop, svgProperties[prop]);
         }
     }
+
+    dnd = function(event) {
+        var details, selectElement, moveElement, deselectElement;
+
+        selectElement = function(event) {
+            var details, i, len;
+
+            details = {};
+            details.selectedElement = event.target;
+            details.currentX = event.clientX;
+            details.currentY = event.clientY;
+            details.currentMatrix = details.selectedElement.getAttributeNS(null, "transform").slice(7, -1).split(" ");
+
+            for (i = 0, len = details.currentMatrix.length; i < len; i++) {
+                details.currentMatrix[i] = parseFloat(details.currentMatrix[i]);
+            }
+            return details;
+        };
+
+        moveElement = function(event, details) {
+            var dx, dy, newMatrix;
+
+            if (typeof details === "undefined") {
+                return;
+            }
+
+            dx = event.clientX - details.currentX;
+            dy = event.clientY - details.currentY;
+            details.currentMatrix[4] += dx;
+            details.currentMatrix[5] += dy;
+            newMatrix = "matrix(" + details.currentMatrix.join(" ") + ")";
+            details.selectElement.setAttributeNS(null, "transform", newMatrix);
+            details.currentX = event.clientX;
+            details.currentY = event.clientY;
+        };
+
+        deselectElement = function(event, details) {
+            if (typeof details === "undefined") {
+                return;
+            }
+
+        };
+
+        console.log(event);
+        switch(event.type) {
+            case "mousedown":
+                details = selectElement(event);
+                break;
+            case "mousemove":
+                moveElement(event, details);
+                break;
+            case "mouseout":
+            case "mouseup":
+                deselectElement(event, details);
+                break;
+        }
+    };
 
     renderPowerSource = function(config) {
         var g, pse, height, width, leftBorderCenter, strokeHeight, origin, longBar, shortBars, exit;
@@ -35,6 +92,7 @@
 
         g = document.createElement('g');
         g.setAttribute("id", config.id);
+        g.setAttribute("transform", "matrix(1 0 0 1 0 0)");
 
         pse = document.createElement('path');
         pse.setAttribute("stroke", "#000000");
@@ -67,6 +125,7 @@
 
         g = document.createElement('g');
         g.setAttribute("id", config.id);
+        g.setAttribute("transform", "matrix(1 0 0 1 0 0)");
 
         wire = document.createElement('path');
         wire.setAttribute("stroke", "#000000");
@@ -105,6 +164,7 @@
 
         g = document.createElement('g');
         g.setAttribute("id", config.id);
+        g.setAttribute("transform", "matrix(1 0 0 1 0 0)");
 
         inbound = document.createElement('path');
         inbound.setAttribute("stroke", "#000000");
@@ -161,6 +221,7 @@
 
         g = document.createElement('g');
         g.setAttribute("id", config.id);
+        g.setAttribute("transform", "matrix(1 0 0 1 0 0)");
 
         inbound = document.createElement('path');
         inbound.setAttribute("stroke", "#000000");
@@ -189,6 +250,7 @@
     ns = global.JS13KBP;
     ns.svg = {
         svg: svg,
+        dragAndDrop: dnd,
         renderPowerSource: renderPowerSource,
         renderSwitchElement: renderSwitchElement,
         renderCable: renderCable,
