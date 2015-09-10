@@ -52,7 +52,7 @@
     };
 
     renderCable = function(config) {
-        var g, origin, exit, controlPoint1, wire;
+        var g, origin, exit, controlPoint1, controlPoint2, slope, center, wire;
 
         config = config || {};
         config.id = config.id || "cable";
@@ -62,8 +62,8 @@
 
         origin = config.inbound[0] + ' ' + config.inbound[1];
         exit = config.outbound[0] + ' ' + config.outbound[1];
-        controlPoint1 = ((config.outbound[0] - config.inbound[0]) / 2);
-        controlPoint1 += ' ' + ((config.outbound[1] - config.inbound[1]) / 2);
+        controlPoint1 = (config.inbound[0] + 5) + ' ' + config.inbound[1];
+        controlPoint2 = (config.outbound[0] - 5) + ' ' + config.outbound[1];
 
         g = document.createElement('g');
         g.setAttribute("id", config.id);
@@ -72,7 +72,7 @@
         wire.setAttribute("stroke", "#000000");
         wire.setAttribute("stroke-width", config.strokeWidth + "");
         wire.setAttribute("class", "live");
-        wire.setAttribute("d", "M" + origin + "Q" + controlPoint1 + " " + exit);
+        wire.setAttribute("d", "M" + origin + "C" + controlPoint1 + " " + controlPoint2 + " " + exit);
         g.appendChild(wire);
         return g;
     };
