@@ -39,5 +39,8 @@
     "grunt-processhtml": "^0.3.8",
     "jsdom": "^3.1.2",
     "time-grunt": "^1.2.1"
+  },
+  "dependencies": {
+    "requirejs": "^2.1.20"
   }
 }

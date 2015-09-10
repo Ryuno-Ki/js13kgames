@@ -104,7 +104,8 @@ module.exports = (grunt) ->
                     sourceMap: true
                 files:
                     'build/<%= pkg.name %>.min.js': [
-                        'src/js/utils.js'
+                        # 'node_modules/requirejs/require.js'
+                        # 'src/js/utils.js'
                         # 'src/js/pubsub.js'
                         # 'src/js/errors.js'
                         'src/js/svg.js'
