@@ -74,9 +74,7 @@ module.exports = (grunt) ->
                 options:
                     maxBytes: 13312
                 src: [
-                    'index.html'
-                    'build/js13k-breaker-panel.min.css'
-                    'build/js13k-breaker-panel.min.js'
+                    'dist/game.zip'
                 ]
 
         "mocha-chai-sinon":
@@ -156,6 +154,7 @@ module.exports = (grunt) ->
         'cssmin'
         'imagemin'
         'uglify'
+        'compress'
         'maxFilesize'
         'watch'
     ]
