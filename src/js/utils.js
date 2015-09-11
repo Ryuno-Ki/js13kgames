@@ -1,9 +1,68 @@
+define([], function() {
+    "use strict";
+    var extendDeep, inherit, mix;
+
+    extendDeep = function(parent, child) {
+        var prop, toStr, p;
+
+        toStr = Object.prototype.toString;
+        child = child || {};
+
+        for (prop in parent) {
+            if (parent.hasOwnProperty(prop)) {
+                p = parent[prop];
+                if (typeof p === "object") {
+                    child[prop] = Array.isArray(p) ? [] : {};
+                    extendDeep(p, child[prop]);
+                } else {
+                    child[prop] = parent[prop];
+                }
+            }
+        }
+        return child;
+    };
+
+    // Example: utils.inherit(KidConstructor, ParentConstructor)
+    inherit = function() {
+        var Proxy;
+        Proxy = function() {};  // Temporary constructor, created only once
+        return function(Child, Parent) {
+            Proxy.prototype = Parent.prototype;
+            Child.prototype = new Proxy();  // Only inherit prototype methods
+            Child.superior = Parent.prototype;  // For access to the super class
+            Child.prototype.constructor = Child;  // For introspection purposes
+        };
+    };
+
+    mix = function() {
+        var i, arg, len, prop, child;
+
+        child = {};
+
+        for (i = 0, len = arguments.length; i < len; i += 1) {
+            arg = arguments[i];
+            for (prop in arg) {
+                if (arg.hasOwnProperty(prop)) {
+                    child[prop] = arg[prop];
+                }
+            }
+        }
+        return child;
+    };
+
+    return {
+        extendDeep: extendDeep,
+        inherit: inherit,
+        mix: mix,
+    };
+});
+/*
 (function(window) {
     'use strict';
-    var ns, on, off, stop, namespace, inherit, klass, extend, extendDeep, mix;
+    var ns, on, off, stop, namespace, klass, extend, extendDeep, mix;
 
 
-    /* Init time branching to determine implementation on first parsing */
+    // Init time branching to determine implementation on first parsing
     on = function(el, type, fn) {
         if (typeof window.addEventListener === 'function') {
             on = function(el, type, fn) {
@@ -20,7 +79,7 @@
         }
     };
 
-    /* Init time branching to determine implementation on first parsing */
+    // Init time branching to determine implementation on first parsing
     off = function(el, type, fn) {
         if (typeof window.removeEventListener === 'function') {
             off = function(el, type, fn) {
@@ -79,17 +138,6 @@
         return window.parent;
     };
 
-    // Example: utils.inherit(KidConstructor, ParentConstructor)
-    inherit = (function() {
-        var Proxy;
-        Proxy = function() {};  // Temporary constructor, created only once
-        return function(Child, Parent) {
-            Proxy.prototype = Parent.prototype;
-            Child.prototype = new Proxy();  // Only inherit prototype methods
-            Child.superior = Parent.prototype;  // For access to the super class
-            Child.prototype.constructor = Child;  // For introspection purposes
-        };
-    })();
 
     klass = function(Parent, properties) {
         var Child, prop;
@@ -131,25 +179,6 @@
         }
     };
 
-    extendDeep = function(parent, child) {
-        var prop, toStr, p;
-
-        toStr = Object.prototype.toString;
-        child = child || {};
-
-        for (prop in parent) {
-            if (parent.hasOwnProperty(prop)) {
-                p = parent[prop];
-                if (typeof p === "object") {
-                    child[prop] = Array.isArray(p) ? [] : {};
-                    extendDeep(p, child[prop]);
-                } else {
-                    child[prop] = parent[prop];
-                }
-            }
-        }
-        return child;
-    };
 
     // Mix several objects into a compounded one
     // Example: var cake = mix({eggs: 2, large: true}, {sugar: "sure!"});
@@ -172,7 +201,7 @@
 
     window.JS13KBP = window.JS13KBP || {};
 
-    /* API */
+    // API
     ns = window.JS13KBP;
     ns.utils = {
         on: on,
@@ -187,3 +216,4 @@
     };
     return ns;
 })(this);
+*/

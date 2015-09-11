@@ -6,6 +6,6 @@
     "eqeqeq": true,
     "undef": true,
     "globals": {
-        "jQuery": true
+        "define": true
     }
 }

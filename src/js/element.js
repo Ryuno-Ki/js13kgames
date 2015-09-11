@@ -1,105 +1,23 @@
-(function(window) {
+define(["js/utils", "js/errors"], function(utils, errors) {
     "use strict";
-    var ns,
-        ElectronicElement,
-        eeProto,
-        SwitchElement,
-        seProto,
-        PowerSourceElement,
-        pseProto,
+    var inputSlotMixin,
+        outputSlotMixin,
         ConsumerElement,
         ceProto,
         CircuitElement,
-        cieProto;
-
-    // FIXME: Use utils module!
-    var inherit,
-        extendDeep,
-        mix,
-        inputSlotMixin,
-        outputSlotMixin,
-        PowerSourceElementError,
-        ConsumerElementError,
-        ElectronicElementError;
-
-    // FIXME: Use utils.inherit, utils.extendDeep, utils.mix and errors.ElectronicElementError!
-    inherit = (function() {
-        var Proxy;
-        Proxy = function() {};  // Temporary constructor, created only once
-        return function(Child, Parent) {
-            Proxy.prototype = Parent.prototype;
-            Child.prototype = new Proxy();  // Only inherit prototype methods
-            Child.superior = Parent.prototype;  // For access to the super class
-            Child.prototype.constructor = Child;  // For introspection purposes
-        };
-    })();
-
-    extendDeep = function(parent, child) {
-        var prop, toStr, p;
-
-        toStr = Object.prototype.toString;
-        child = child || {};
-
-        for (prop in parent) {
-            if (parent.hasOwnProperty(prop)) {
-                p = parent[prop];
-                if (typeof p === "object") {
-                    child[prop] = Array.isArray(p) ? [] : {};
-                    extendDeep(p, child[prop]);
-                } else {
-                    child[prop] = parent[prop];
-                }
-            }
-        }
-        return child;
-    };
-
-    mix = function() {
-        var i, arg, len, prop, child;
-
-        child = {};
-
-        for (i = 0, len = arguments.length; i < len; i += 1) {
-            arg = arguments[i];
-            for (prop in arg) {
-                if (arg.hasOwnProperty(prop)) {
-                    child[prop] = arg[prop];
-                }
-            }
-        }
-
-        return child;
-    };
-
-    ElectronicElementError = {
-        name: "ElectronicElementError",
-        message: "Must be an instance of ElectronicElement!",
-        toString: function() {
-            return this.name + ": " + this.message;
-        }
-    };
-
-    PowerSourceElementError = {
-        name: "PowerSourceElementError",
-        message: "Must be an instance of PowerSourceElement!",
-        toString: function() {
-            return this.name + ": " + this.message;
-        }
-    };
-
-    ConsumerElementError = {
-        name: "ConsumerElementError",
-        message: "Must be an instance of ConsumerElement!",
-        toString: function() {
-            return this.name + ": " + this.message;
-        }
-    };
+        cieProto,
+        ElectronicElement,
+        eeProto,
+        PowerSourceElement,
+        pseProto,
+        SwitchElement,
+        seProto;
 
     inputSlotMixin = {
         setInput: function(element) {
             if (!(element instanceof ElectronicElement)) {
                 // TODO: Move into errors.js
-                throw ElectronicElementError;
+                throw errors.ElectronicElementError;
             }
             this._input = element;
             // Using element.setOutput() yields an infinite loop
@@ -117,7 +35,7 @@
         setOutput: function(element) {
             if (!(element instanceof ElectronicElement)) {
                 // TODO: Move into errors.js
-                throw ElectronicElementError;
+                throw errors.ElectronicElementError;
             }
             this._output = element;
             // Using element.setInput() yields an infinite loop
@@ -129,146 +47,7 @@
         hasOutput: function() {
             return (typeof this._output !== "undefined") && (this._output !== null);
         }
-
     };
-
-    /**
-     * Describes abstract parent class for all construction elements.
-     */
-    ElectronicElement = function ElectronicElement(name) {
-        // Ensure being called with `new`
-        if (!(this instanceof ElectronicElement)) {
-            return new ElectronicElement(name);
-        }
-
-        // Private members
-        var feature, called, that;
-
-        that = this;
-        ElectronicElement.count += 1;
-        that._name = name + '-' + ElectronicElement.count;
-        that._type = 'electronic';
-
-        // feature is truly private here
-        // Doesn't work with Arrays and Objects (passed by reference!)
-        feature = 'sizzles';
-        that.getFeature = function() {
-            return feature;
-        };
-    };
-
-    // Static methods
-    ElectronicElement.count = 0;
-
-    // Instance methods
-    eeProto = ElectronicElement.prototype;
-    eeProto.getName = function() {
-        return this._name;
-    };
-
-    eeProto.getType = function() {
-        return this._type;
-    };
-
-    extendDeep(mix(inputSlotMixin, outputSlotMixin), eeProto);
-
-    eeProto.renderSelf = function(node) {
-        var img, that;
-
-        that = this;
-        img = "<img src='build/" + that._icon + "' alt='" + that._type + ": " + that._name + "' />";
-        node.innerHTML += img;
-    };
-
-    SwitchElement = function(name) {
-        // Ensure being called with `new`
-        if (!(this instanceof SwitchElement)) {
-            return new SwitchElement(name);
-        }
-
-        // Private members
-        var feature, called, that;
-
-        SwitchElement.count += 1;
-        that = this;
-        that._name = name + '-' + SwitchElement.count;
-        that._type = 'switch';
-        that._closed = true;
-        that._icon = 'switch';
-
-        that._input = null;
-        that._output = null;
-    };
-
-    inherit(SwitchElement, ElectronicElement);
-    // Static methods
-    SwitchElement.count = 0;
-
-    seProto = SwitchElement.prototype;
-    seProto.isClosed = function() {
-        return this._closed;
-    };
-
-    seProto.renderSelf = function(node) {
-        var img, that, closed;
-
-        that = this;
-        closed = that._closed ? 'closed' : 'open';
-
-        img = "<img src='build/" + that._icon + "-" + closed + ".svg' ";
-        img += "alt='" + that._type + "-" + closed + ": " + that._name + "' />";
-        node.innerHTML += img;
-    };
-
-    extendDeep(mix(inputSlotMixin, outputSlotMixin), seProto);
-
-    seProto.useSwitch = function() {
-        this._closed = !this._closed;
-    };
-
-    PowerSourceElement = function(name) {
-        var that;
-
-        // Ensure being called with `new`
-        if (!(this instanceof PowerSourceElement)) {
-            return new PowerSourceElement(name);
-        }
-
-        PowerSourceElement.count += 1;
-        that = this;
-        that._name = name + '-' + PowerSourceElement.count;
-        that._type = 'power-source';
-        that._output = null;
-    };
-    inherit(PowerSourceElement, ElectronicElement);
-
-    PowerSourceElement.count = 0;
-
-    pseProto = PowerSourceElement.prototype;
-    extendDeep(outputSlotMixin, pseProto);
-
-    ConsumerElement = function(name) {
-        var that;
-
-        // Ensure being called with `new`
-        if (!(this instanceof ConsumerElement)) {
-            return new ConsumerElement(name);
-        }
-
-        ConsumerElement.count += 1;
-
-        that = this;
-        that._name = name + '-' + ConsumerElement.count;
-        that = this;
-        that._type = 'consumer';
-        that._input = null;
-    };
-    inherit(ConsumerElement, ElectronicElement);
-
-    ConsumerElement.count = 0;
-
-    ceProto = ConsumerElement.prototype;
-    extendDeep(inputSlotMixin, ceProto);
 
     CircuitElement = function(name) {
         var that;
@@ -283,16 +62,15 @@
         that._type = 'circuit';
         that._elements = [];
     };
-    inherit(CircuitElement, ElectronicElement);
-
     cieProto = CircuitElement.prototype;
+    utils.inherit(CircuitElement, ElectronicElement);
     cieProto.hasPowerSource = function() {
         var elementNames;
 
         elementNames = this._elements.map(function(el) {
             if (!(el instanceof ElectronicElement)) {
                 // TODO: Move into errors.js
-                throw ElectronicElementError;
+                throw errors.ElectronicElementError;
             }
             return el.getType();
         });
@@ -302,7 +80,7 @@
     cieProto.addPowerSource = function(powerSource) {
         if (!(powerSource instanceof PowerSourceElement)) {
             // TODO: Move into errors.js
-            throw PowerSourceElementError;
+            throw errors.PowerSourceElementError;
         }
         this._elements.push(powerSource);
     };
@@ -313,7 +91,7 @@
         elementNames = this._elements.map(function(el) {
             if (!(el instanceof ElectronicElement)) {
                 // TODO: Move into errors.js
-                throw ElectronicElementError;
+                throw errors.ElectronicElementError;
             }
             return el.getType();
         });
@@ -323,7 +101,7 @@
     cieProto.addConsumer = function(consumer) {
         if (!(consumer instanceof ConsumerElement)) {
             // TODO: Move into errors.js
-            throw ConsumerElementError;
+            throw errors.ConsumerElementError;
         }
         this._elements.push(consumer);
     };
@@ -334,7 +112,7 @@
         elementNames = this._elements.map(function(el) {
             if (!(el instanceof ElectronicElement)) {
                 // TODO: Move into errors.js
-                throw ElectronicElementError;
+                throw errors.ElectronicElementError;
             }
             return el.getType();
         });
@@ -361,7 +139,7 @@
     cieProto.addElectronic = function(electronic) {
         if (!(electronic instanceof ElectronicElement)) {
             // TODO: Move into errors.js
-            throw ElectronicElementError;
+            throw errors.ElectronicElementError;
         }
         this._elements.push(electronic);
     };
@@ -371,7 +149,7 @@
         return  this._elements.map(function(el) {
             if (!(el instanceof ElectronicElement)) {
                 // TODO: Move into errors.js
-                throw ElectronicElementError;
+                throw errors.ElectronicElementError;
             }
 
             switch (el.getType()) {
@@ -434,16 +212,137 @@
         return logic;
     };
 
-    window.JS13KBP = window.JS13KBP || {};
+    ConsumerElement = function(name) {
+        var that;
 
-    /* API */
-    ns = window.JS13KBP;
-    ns.element = {
-        ElectronicElement: ElectronicElement,
-        SwitchElement: SwitchElement,
-        PowerSourceElement: PowerSourceElement,
-        ConsumerElement: ConsumerElement,
-        CircuitElement: CircuitElement,
+        // Ensure being called with `new`
+        if (!(this instanceof ConsumerElement)) {
+            return new ConsumerElement(name);
+        }
+
+        ConsumerElement.count += 1;
+
+        that = this;
+        that._name = name + '-' + ConsumerElement.count;
+        that = this;
+        that._type = 'consumer';
+        that._input = null;
     };
-    return ns;
-})(this);
+    ceProto = ConsumerElement.prototype;
+    utils.inherit(ConsumerElement, ElectronicElement);
+    utils.extendDeep(inputSlotMixin, ceProto);
+    ConsumerElement.count = 0;
+
+    /**
+     * Describes abstract parent class for all construction elements.
+     */
+    ElectronicElement = function ElectronicElement(name) {
+        // Ensure being called with `new`
+        if (!(this instanceof ElectronicElement)) {
+            return new ElectronicElement(name);
+        }
+
+        // Private members
+        var feature, called, that;
+
+        that = this;
+        ElectronicElement.count += 1;
+        that._name = name + '-' + ElectronicElement.count;
+        that._type = 'electronic';
+
+        // feature is truly private here
+        // Doesn't work with Arrays and Objects (passed by reference!)
+        feature = 'sizzles';
+        that.getFeature = function() {
+            return feature;
+        };
+    };
+    // Static methods
+    ElectronicElement.count = 0;
+    // Instance methods
+    eeProto = ElectronicElement.prototype;
+    eeProto.getName = function() {
+        return this._name;
+    };
+    eeProto.getType = function() {
+        return this._type;
+    };
+    utils.extendDeep(utils.mix(inputSlotMixin, outputSlotMixin), eeProto);
+
+    PowerSourceElement = function(name) {
+        var that;
+
+        // Ensure being called with `new`
+        if (!(this instanceof PowerSourceElement)) {
+            return new PowerSourceElement(name);
+        }
+
+        PowerSourceElement.count += 1;
+        that = this;
+        that._name = name + '-' + PowerSourceElement.count;
+        that._type = 'power-source';
+        that._output = null;
+    };
+    pseProto = PowerSourceElement.prototype;
+    utils.inherit(PowerSourceElement, ElectronicElement);
+    utils.extendDeep(outputSlotMixin, pseProto);
+    PowerSourceElement.count = 0;
+
+    SwitchElement = function(name) {
+        // Ensure being called with `new`
+        if (!(this instanceof SwitchElement)) {
+            return new SwitchElement(name);
+        }
+
+        // Private members
+        var feature, called, that;
+
+        SwitchElement.count += 1;
+        that = this;
+        that._name = name + '-' + SwitchElement.count;
+        that._type = 'switch';
+        that._closed = true;
+        that._icon = 'switch';
+
+        that._input = null;
+        that._output = null;
+    };
+    seProto = SwitchElement.prototype;
+    utils.inherit(SwitchElement, ElectronicElement);
+    utils.extendDeep(utils.mix(inputSlotMixin, outputSlotMixin), seProto);
+    // Static methods
+    SwitchElement.count = 0;
+    seProto.isClosed = function() {
+        return this._closed;
+    };
+    seProto.useSwitch = function() {
+        this._closed = !this._closed;
+    };
+
+    return {
+        CircuitElement: CircuitElement,
+        ConsumerElement: ConsumerElement,
+        PowerSourceElement: PowerSourceElement,
+        SwitchElement: SwitchElement,
+    };
+});
+/*
+    eeProto.renderSelf = function(node) {
+        var img, that;
+
+        that = this;
+        img = "<img src='build/" + that._icon + "' alt='" + that._type + ": " + that._name + "' />";
+        node.innerHTML += img;
+    };
+
+    seProto.renderSelf = function(node) {
+        var img, that, closed;
+
+        that = this;
+        closed = that._closed ? 'closed' : 'open';
+
+        img = "<img src='build/" + that._icon + "-" + closed + ".svg' ";
+        img += "alt='" + that._type + "-" + closed + ": " + that._name + "' />";
+        node.innerHTML += img;
+    };
+*/

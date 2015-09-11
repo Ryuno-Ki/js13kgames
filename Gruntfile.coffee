@@ -64,7 +64,7 @@ module.exports = (grunt) ->
                 'src/js/*.js'
             ]
             # afterconcat: [
-            #     'build/<%= pkg.name %>.min.js'
+            #     'build/app.min.js'
             # ]
             options:
                 jshintrc: true
@@ -103,15 +103,15 @@ module.exports = (grunt) ->
                     screwIE8: true
                     sourceMap: true
                 files:
-                    'build/<%= pkg.name %>.min.js': [
-                        # 'node_modules/requirejs/require.js'
-                        # 'src/js/utils.js'
-                        # 'src/js/pubsub.js'
-                        # 'src/js/errors.js'
+                    'build/app.min.js': [
+                        'src/app.js'
+                        #'src/js/utils.js'
+                        #'src/js/pubsub.js'
+                        #'src/js/errors.js'
                         'src/js/svg.js'
                         'src/js/element.js'
                         # 'src/js/modules.js'
-                        'src/js/<%= pkg.name %>.js'
+                        'src/js/main.js'
                     ]
 
         watch:

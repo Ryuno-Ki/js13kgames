@@ -1,14 +1,15 @@
-(function(global) {
+define(function() {
     "use strict";
-    var world, svg, svgProperties, prop, ns, dnd;
-    var renderPowerSource, renderSwitchElement, renderCable, renderConsumer;
+    var world, svgProperties, prop;
+    var el, renderPowerSource;
 
     world = {
         size: [300, 300],
         columns: 4,
         rows: 4,
     };
-    svg = document.createElement('svg');
+
+    el = document.createElement("svg");
     svgProperties = {
         "viewBox": "0 0 100 100",
         "version": "1.1",
@@ -18,9 +19,49 @@
     };
     for (prop in svgProperties) {
         if (svgProperties.hasOwnProperty(prop)) {
-            svg.setAttribute(prop, svgProperties[prop]);
+            el.setAttribute(prop, svgProperties[prop]);
         }
     }
+    renderPowerSource = function(config) {
+        var g, pse, height, width, leftBorderCenter, strokeHeight, origin, longBar, shortBars, exit;
+
+        config = config || {};
+        config.id = config.id || "power-source";
+        config.bb = config.bb || [0, 0, 25, 100];  // boundingBox
+
+        height = config.bb[3] - config.bb[1];
+        width = config.bb[2] - config.bb[0];
+        leftBorderCenter = config.bb[1] + height / 2;
+        strokeHeight = 0.9 * height;
+        origin = (config.bb[0] + 0.25 * width) + ' ' + 0.05 * height;
+        longBar = 'v' + strokeHeight;
+        shortBars = 'v' + (0.4 * height) + 'm0 ' + (0.1 * height) + 'v' + (0.4 * height);
+
+        g = document.createElement('g');
+        g.setAttribute("id", config.id);
+        g.setAttribute("transform", "matrix(1 0 0 1 0 0)");
+
+        pse = document.createElement('path');
+        pse.setAttribute('d', 'm' + origin + longBar + 'm' + (0.25 * width) + ' ' + (-strokeHeight) + shortBars);
+        g.appendChild(pse);
+
+        exit = document.createElement('path');
+        exit.setAttribute("class", "live");
+        exit.setAttribute("d", "m" + (0.5 * width) + " " + leftBorderCenter + "h" + (0.5*width));
+        g.appendChild(exit);
+        return g;
+    };
+
+    return {
+        el: el,
+        renderPowerSource: renderPowerSource,
+    };
+});
+/*
+(function(global) {
+    "use strict";
+    var world, svg, svgProperties, prop, ns, dnd;
+    var renderPowerSource, renderSwitchElement, renderCable, renderConsumer;
 
     dnd = function(elements) {
         var details, selectElement, moveElement, deselectElement, i, len, element;
@@ -84,36 +125,6 @@
             console.log(element);
             element.addEventListener('mousedown', selectElement);
         }
-    };
-
-    renderPowerSource = function(config) {
-        var g, pse, height, width, leftBorderCenter, strokeHeight, origin, longBar, shortBars, exit;
-
-        config = config || {};
-        config.id = config.id || "power-source";
-        config.bb = config.bb || [0, 0, 25, 100];  // boundingBox
-
-        height = config.bb[3] - config.bb[1];
-        width = config.bb[2] - config.bb[0];
-        leftBorderCenter = config.bb[1] + height / 2;
-        strokeHeight = 0.9 * height;
-        origin = (config.bb[0] + 0.25 * width) + ' ' + 0.05 * height;
-        longBar = 'v' + strokeHeight;
-        shortBars = 'v' + (0.4 * height) + 'm0 ' + (0.1 * height) + 'v' + (0.4 * height);
-
-        g = document.createElement('g');
-        g.setAttribute("id", config.id);
-        g.setAttribute("transform", "matrix(1 0 0 1 0 0)");
-
-        pse = document.createElement('path');
-        pse.setAttribute('d', 'm' + origin + longBar + 'm' + (0.25 * width) + ' ' + (-strokeHeight) + shortBars);
-        g.appendChild(pse);
-
-        exit = document.createElement('path');
-        exit.setAttribute("class", "live");
-        exit.setAttribute("d", "m" + (0.5 * width) + " " + leftBorderCenter + "h" + (0.5*width));
-        g.appendChild(exit);
-        return g;
     };
 
     renderCable = function(config) {
@@ -235,17 +246,4 @@
         g.appendChild(lampCross);
         return g;
     };
-
-    global.JS13KBP = global.JS13KBP || {};
-
-    /* API */
-    ns = global.JS13KBP;
-    ns.svg = {
-        svg: svg,
-        dragAndDrop: dnd,
-        renderPowerSource: renderPowerSource,
-        renderSwitchElement: renderSwitchElement,
-        renderCable: renderCable,
-        renderConsumer: renderConsumer
-    };
-})(this);
+*/
