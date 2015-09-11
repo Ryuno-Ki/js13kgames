@@ -1,3 +1,4 @@
-# Temporary files
-*.swp
-*~
+node_modules/
+build/*.map
+*.*~
+.*~

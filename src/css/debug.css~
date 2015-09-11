@@ -1,0 +1,20 @@
+#game svg,
+#game svg g {
+    border: 1px solid gray;
+}
+
+#game svg circle {
+    stroke: #006600;
+    fill: #CC0000;
+}
+
+@keyframes live {
+    to {
+        stroke-dashoffset: 100;
+    }
+}
+
+#game svg .live {
+    stroke-dasharray: 5;
+    animation: live 5s linear reverse;
+}
