@@ -9,11 +9,6 @@
     element = app.element;
     svg = app.svg;
 
-    game.addEventListener('mousedown', svg.dragAndDrop, false);
-    game.addEventListener('mousemove', svg.dragAndDrop, false);
-    game.addEventListener('mouseout', svg.dragAndDrop, false);
-    game.addEventListener('mouseup', svg.dragAndDrop, false);
-
     ps = new element.PowerSourceElement("power-source");
     switchElement = new element.SwitchElement("switchElement");
     se = new element.SwitchElement("se");
@@ -53,4 +48,6 @@
         bb: [75, 75, 100, 100],
     }));
     svg.svg.outerHTML = svg.svg.outerHTML;  // Enforce repaint
+
+    svg.dragAndDrop(game.getElementsByTagName('g'));
 })(this);

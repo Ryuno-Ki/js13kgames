@@ -17,14 +17,20 @@
         }
     }
 
-    dnd = function(event) {
-        var details, selectElement, moveElement, deselectElement;
+    dnd = function(elements) {
+        var details, selectElement, moveElement, deselectElement, i, len, element;
+
+        details = details || {};
 
         selectElement = function(event) {
-            var details, i, len;
+            var target, i, len;
 
-            details = {};
-            details.selectedElement = event.target;
+            target = event.target;
+            while (target !== null && target.nodeName.toLowerCase() !== "g") {
+                target = target.parentNode;
+            }
+
+            details.selectedElement = target;
             details.currentX = event.clientX;
             details.currentY = event.clientY;
             details.currentMatrix = details.selectedElement.getAttributeNS(null, "transform").slice(7, -1).split(" ");
@@ -32,10 +38,12 @@
             for (i = 0, len = details.currentMatrix.length; i < len; i++) {
                 details.currentMatrix[i] = parseFloat(details.currentMatrix[i]);
             }
+
+            event.target.addEventListener('mousemove', moveElement);
             return details;
         };
 
-        moveElement = function(event, details) {
+        moveElement = function(event) {
             var dx, dy, newMatrix;
 
             if (typeof details === "undefined") {
@@ -47,30 +55,29 @@
             details.currentMatrix[4] += dx;
             details.currentMatrix[5] += dy;
             newMatrix = "matrix(" + details.currentMatrix.join(" ") + ")";
-            details.selectElement.setAttributeNS(null, "transform", newMatrix);
+            details.selectedElement.setAttributeNS(null, "transform", newMatrix);
             details.currentX = event.clientX;
             details.currentY = event.clientY;
+
+            event.target.addEventListener('mouseout', deselectElement);
+            event.target.addEventListener('mouseup', deselectElement);
         };
 
-        deselectElement = function(event, details) {
+        deselectElement = function(event) {
             if (typeof details === "undefined") {
                 return;
             }
 
+            event.target.removeEventListener('mousedown', selectElement);
+            event.target.removeEventListener('mousemove', moveElement);
+            event.target.removeEventListener('mouseout', deselectElement);
+            event.target.removeEventListener('mouseup', deselectElement);
         };
 
-        console.log(event);
-        switch(event.type) {
-            case "mousedown":
-                details = selectElement(event);
-                break;
-            case "mousemove":
-                moveElement(event, details);
-                break;
-            case "mouseout":
-            case "mouseup":
-                deselectElement(event, details);
-                break;
+        for (i = 0, len = elements.length; i < len; i += 1) {
+            element = elements[i];
+            console.log(element);
+            element.addEventListener('mousedown', selectElement);
         }
     };
 
