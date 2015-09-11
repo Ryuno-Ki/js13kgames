@@ -37,6 +37,8 @@ svg g {
 
 svg path {
     fill: #FFFFFF;
+    stroke: #000000;
+    stroke-width: 1;
 }
 
 @keyframes live {

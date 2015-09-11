@@ -1,15 +1,20 @@
 (function(global) {
     "use strict";
-    var svg, svgProperties, prop, ns, dnd;
+    var world, svg, svgProperties, prop, ns, dnd;
     var renderPowerSource, renderSwitchElement, renderCable, renderConsumer;
 
+    world = {
+        size: [300, 300],
+        columns: 4,
+        rows: 4,
+    };
     svg = document.createElement('svg');
     svgProperties = {
         "viewBox": "0 0 100 100",
         "version": "1.1",
         "xmlns": "http://www,w3.org/2000/svg",
-        "width": "300",
-        "height": "300",
+        "width": world.size[0],
+        "height": world.size[1],
     };
     for (prop in svgProperties) {
         if (svgProperties.hasOwnProperty(prop)) {
@@ -86,7 +91,6 @@
 
         config = config || {};
         config.id = config.id || "power-source";
-        config.strokeWidth = config.strokeWidth || 1;
         config.bb = config.bb || [0, 0, 25, 100];  // boundingBox
 
         height = config.bb[3] - config.bb[1];
@@ -102,14 +106,10 @@
         g.setAttribute("transform", "matrix(1 0 0 1 0 0)");
 
         pse = document.createElement('path');
-        pse.setAttribute("stroke", "#000000");
-        pse.setAttribute("stroke-width", config.strokeWidth + "");
         pse.setAttribute('d', 'm' + origin + longBar + 'm' + (0.25 * width) + ' ' + (-strokeHeight) + shortBars);
         g.appendChild(pse);
 
         exit = document.createElement('path');
-        exit.setAttribute("stroke", "#000000");
-        exit.setAttribute("stroke-width", config.strokeWidth + "");
         exit.setAttribute("class", "live");
         exit.setAttribute("d", "m" + (0.5 * width) + " " + leftBorderCenter + "h" + (0.5*width));
         g.appendChild(exit);
@@ -121,7 +121,6 @@
 
         config = config || {};
         config.id = config.id || "cable";
-        config.strokeWidth = config.strokeWidth || 1;
         config.inbound = config.inbound || [15, 0];
         config.outbound = config.outbound || [50, 100];
 
@@ -135,8 +134,6 @@
         g.setAttribute("transform", "matrix(1 0 0 1 0 0)");
 
         wire = document.createElement('path');
-        wire.setAttribute("stroke", "#000000");
-        wire.setAttribute("stroke-width", config.strokeWidth + "");
         wire.setAttribute("class", "live");
         wire.setAttribute("d", "M" + origin + "C" + controlPoint1 + " " + controlPoint2 + " " + exit);
         g.appendChild(wire);
@@ -151,7 +148,6 @@
 
         config = config || {};
         config.id = config.id || "switch";
-        config.strokeWidth = config.strokeWidth || 1;
         config.bb = config.bb || [15, 0, 50, 100]; // boundingBox
 
         height = config.bb[3] - config.bb[1];
@@ -174,8 +170,6 @@
         g.setAttribute("transform", "matrix(1 0 0 1 0 0)");
 
         inbound = document.createElement('path');
-        inbound.setAttribute("stroke", "#000000");
-        inbound.setAttribute("stroke-width", config.strokeWidth + "");
         inbound.setAttribute("class", "live");
         inbound.setAttribute("d", "m" + origin + "h" + inboundLength);
         g.appendChild(inbound);
@@ -188,8 +182,6 @@
         g.appendChild(pier1);
 
         bridge = document.createElement('path');
-        bridge.setAttribute("stroke", "#000000");
-        bridge.setAttribute("stroke-width", config.strokeWidth + "");
         bridge.setAttribute("class", "live");
         bridge.setAttribute("d", "m" + bridgeOrigin + "l" + bridgeLength + " " + (-pierRadius));
         g.appendChild(bridge);
@@ -202,8 +194,6 @@
         g.appendChild(pier2);
 
         outbound = document.createElement("path");
-        outbound.setAttribute("stroke", "#000000");
-        outbound.setAttribute("stroke-width", config.strokeWidth + "");
         outbound.setAttribute("class", "live");
         outbound.setAttribute("d", "m" + pier2Origin  + " " + leftBorderCenter + "h" + outboundLength);
         g.appendChild(outbound);
@@ -215,7 +205,6 @@
 
         config = config || {};
         config.id = config.id || "consumer";
-        config.strokeWidth = config.strokeWidth || 1;
         config.bb = config.bb || [75, 0, 100, 100];
 
         height = config.bb[3] - config.bb[1];
@@ -231,8 +220,6 @@
         g.setAttribute("transform", "matrix(1 0 0 1 0 0)");
 
         inbound = document.createElement('path');
-        inbound.setAttribute("stroke", "#000000");
-        inbound.setAttribute("stroke-width", config.strokeWidth + "");
         inbound.setAttribute("class", "live");
         inbound.setAttribute('d', 'm ' + config.bb[0] + ' ' + leftBorderCenter + ' h ' + inboundLength);
         g.appendChild(inbound);
@@ -244,8 +231,6 @@
         g.appendChild(lamp);
 
         lampCross = document.createElement('path');
-        lampCross.setAttribute("stroke", "#000000");
-        lampCross.setAttribute("stroke-width", config.strokeWidth + "");
         lampCross.setAttribute("d", "m" + (config.bb[0] + (lampRadius / 2)) + " " + leftBorderCenter + "l" + (2 * lampRadius) + " 0");
         g.appendChild(lampCross);
         return g;
