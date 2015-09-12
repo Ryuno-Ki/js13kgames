@@ -38,18 +38,6 @@ module.exports = (grunt) ->
                         'src/css/*.css'
                     ]
 
-        imagemin:
-            build:
-                options:
-                    optimizationLevel: 3
-                    svgoPlugins: [
-                        {removeViewBox: false}
-                        {removeUselessStrokeAndFill: false}
-                        {removeEmptyAttrs: false}
-                    ]
-                files:
-                    'build/switch-closed.svg': 'src/svg/switch-closed.svg'
-
         jsdoc:
             doc:
                 src: [
@@ -103,16 +91,19 @@ module.exports = (grunt) ->
                     screwIE8: true
                     sourceMap: true
                 files:
-                    'build/app.min.js': [
-                        'src/app.js'
-                        #'src/js/utils.js'
-                        #'src/js/pubsub.js'
-                        #'src/js/errors.js'
-                        'src/js/svg.js'
-                        'src/js/element.js'
-                        # 'src/js/modules.js'
-                        'src/js/main.js'
-                    ]
+                    'build/app.min.js': [ 'src/app.js' ]
+                    'build/app/element.js': [ 'src/js/element.js' ]
+                    'build/app/electronics/consumerElement.js': [ 'src/js/electronics/consumerElement.js' ]
+                    'build/app/electronics/powerSourceElement.js': [ 'src/js/electronics/powerSourceElement.js' ]
+                    'build/app/electronics/switchElement.js': [ 'src/js/electronics/switchElement.js' ]
+                    'build/app/electronics/circuitElement.js': [ 'src/js/electronics/circuitElement.js' ]
+                    'build/app/errors.js': [ 'src/js/errors.js' ]
+                    'build/app/main.js': [ 'src/js/main.js' ]
+                    'build/app/svg.js': [ 'src/js/svg.js' ]
+                    'build/app/utils.js': [ 'src/js/utils.js' ]
+                    #'src/js/pubsub.js'
+                    #'src/js/modules.js'
+                    #'src/js/main.js'
 
         watch:
             scripts:
@@ -124,7 +115,7 @@ module.exports = (grunt) ->
                     'cssmin'
                     'uglify'
                     'jshint'
-                    'mocha-chai-sinon'
+                    # 'mocha-chai-sinon'
                     'maxFilesize'
                 ]
             test:
@@ -138,7 +129,6 @@ module.exports = (grunt) ->
     # Load the plugins
     grunt.loadNpmTasks 'grunt-contrib-compress'
     grunt.loadNpmTasks 'grunt-contrib-cssmin'
-    grunt.loadNpmTasks 'grunt-contrib-imagemin'
     grunt.loadNpmTasks 'grunt-contrib-jshint'
     grunt.loadNpmTasks 'grunt-contrib-uglify'
     grunt.loadNpmTasks 'grunt-contrib-watch'
@@ -153,10 +143,9 @@ module.exports = (grunt) ->
     # Default task(s).
     grunt.registerTask 'default', [
         'cssmin'
-        'imagemin'
         'uglify'
         'compress'
         'maxFilesize'
         'watch'
     ]
-    grunt.registerTask 'test', ['mocha-chai-sinon']
+    # grunt.registerTask 'test', ['mocha-chai-sinon']

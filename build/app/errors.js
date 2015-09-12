@@ -1,0 +1,4 @@
+/*! js13k-breaker-panel - v0.0.5 - 2015-09-12 */
+
+define(function(){"use strict";var a,b,c;return a={name:"ConsumerElementError",message:"Must be an instance of ConsumerElement!",toString:function(){return this.name+": "+this.message}},b={name:"ElectronicElementError",message:"Must be an instance of ElectronicElement!",toString:function(){return this.name+": "+this.message}},c={name:"PowerSourceElementError",message:"Must be an instance of PowerSourceElement!",toString:function(){return this.name+": "+this.message}},{ElectronicElementError:b,PowerSourceElementError:c,ConsumerElementError:a}});
+//# sourceMappingURL=errors.js.map
