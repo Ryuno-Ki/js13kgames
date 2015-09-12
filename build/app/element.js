@@ -1,4 +1,4 @@
-/*! js13k-breaker-panel - v0.0.5 - 2015-09-12 */
+/*! js13k-breaker-panel - v0.0.5 - 2015-09-13 */
 
 define(["app/utils","app/errors"],function(a,b){"use strict";var c,d;return c=function a(b){if(!(this instanceof a))return new a(b);var c,d;d=this,a.count+=1,d._name=b+"-"+a.count,d._type="electronic",c="sizzles",d.getFeature=function(){return c}},c.count=0,d=c.prototype,d.getName=function(){return this._name},d.getType=function(){return this._type},d.setInput=function(a){if(!(a instanceof c))throw console.log("element:",a,a.constructor),console.log("proto:",a.prototype),b.ElectronicElementError;this._input=a,a._output=this},d.getInput=function(){return this._input},d.hasInput=function(){return"undefined"!=typeof this._input&&null!==this._input},{ElectronicElement:c}});
 //# sourceMappingURL=element.js.map

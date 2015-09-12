@@ -2,10 +2,10 @@ define(["app/element", "app/svg",
        "app/electronics/powerSourceElement", "app/electronics/switchElement", "app/electronics/consumerElement", "app/electronics/circuitElement"],
        function(element, svg, powerSourceElement, switchElement, consumerElement, circuitElement) {
            "use strict";
-           var game, pse, sw, c, ci;
+           var game, explanations, explanation, i, len, pse, sw, c, ci;
 
            game = document.getElementById("game");
-           console.log(game, element, switchElement, svg);
+
            pse = new powerSourceElement.PowerSourceElement("power-source");
            sw = new switchElement.SwitchElement("switch-element");
            c = new consumerElement.ConsumerElement("consumer");
@@ -34,10 +34,16 @@ define(["app/element", "app/svg",
            }));
            game.appendChild(svg.el);
            svg.el.outerHTML = svg.el.outerHTML;  // Enforce repaint
-       
-           // svg.dragAndDrop(game.getElementsByTagName('g'));
+           svg.dragAndDrop(game.getElementsByTagName('g'));
 
-           console.log(game, svg, sw);
+           explanations = document.getElementsByClassName("explanation");
+           for (i = 0, len = explanations.length; i < len; i += 1) {
+               explanation = explanations[i];
+               console.log(explanation);
+               explanation.firstElementChild.appendChild(svg["render" + explanation.dataset.electronic]({bb: [0, 0, 25, 25]}));
+               explanation.firstElementChild.outerHTML = explanation.firstElementChild.outerHTML;  // Enforce repaint
+           }
+
           return {};
        }
 );

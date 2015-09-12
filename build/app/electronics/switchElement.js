@@ -1,4 +1,4 @@
-/*! js13k-breaker-panel - v0.0.5 - 2015-09-12 */
+/*! js13k-breaker-panel - v0.0.5 - 2015-09-13 */
 
 define(["app/element","app/utils","app/errors"],function(a,b,c){"use strict";var d,e;return d=function(a){if(!(this instanceof d))return new d(a);var b;d.count+=1,b=this,b._name=a+"-"+d.count,b._type="switch",b._closed=!0,b._icon="switch",b._input=null,b._output=null},e=d.prototype,b.inherit(d,a.ElectronicElement),e.setInput=function(a){this._input=a||null,a._output=this},e.getInput=function(){return this._input},e.hasInput=function(){return"undefined"!=typeof this._input&&null!==this._input},e.setOutput=function(a){this._output=a||null,a._input=this},e.getOutput=function(){return this._output},e.hasOutput=function(){return"undefined"!=typeof this._output&&null!==this._output},d.count=0,e.isClosed=function(){return this._closed},e.useSwitch=function(){this._closed=!this._closed},{SwitchElement:d}});
 //# sourceMappingURL=switchElement.js.map

@@ -1,7 +1,7 @@
 define(function() {
     "use strict";
     var world, svgProperties, prop;
-    var el, renderPowerSource, renderSwitchElement, renderCable, renderConsumer;
+    var el, dnd, renderPowerSource, renderSwitchElement, renderCable, renderConsumer;
 
     world = {
         size: [300, 300],
@@ -172,21 +172,6 @@ define(function() {
         return g;
     };
 
-
-    return {
-        el: el,
-        renderPowerSource: renderPowerSource,
-        renderSwitchElement: renderSwitchElement,
-        renderCable: renderCable,
-        renderConsumer: renderConsumer,
-    };
-});
-/*
-(function(global) {
-    "use strict";
-    var world, svg, svgProperties, prop, ns, dnd;
-    var renderPowerSource, renderSwitchElement, renderCable, renderConsumer;
-
     dnd = function(elements) {
         var details, selectElement, moveElement, deselectElement, i, len, element;
 
@@ -250,4 +235,13 @@ define(function() {
             element.addEventListener('mousedown', selectElement);
         }
     };
-*/
+
+    return {
+        el: el,
+        dragAndDrop: dnd,
+        renderPowerSource: renderPowerSource,
+        renderSwitchElement: renderSwitchElement,
+        renderCable: renderCable,
+        renderConsumer: renderConsumer,
+    };
+});
