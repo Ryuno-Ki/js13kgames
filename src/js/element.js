@@ -11,13 +11,17 @@ define(["utils"], function(utils) {
 
     /**
      * Describes abstract parent class for all construction elements.
+     *
+     * @constructor ElectronicElement
      */
     ElectronicElement = function ElectronicElement() {
         this._type = 'electronic';
         ElectronicElement.count += 1;
     };
+
     /**
      * Holds a reference about how many instances were created. I originally used this to create unique names.
+     *
      * @static
      * @name count
      */
@@ -30,6 +34,7 @@ define(["utils"], function(utils) {
      * Returns the type of this element. Used to determine, which methods to call.
      * @function
      * @name getType
+     * @memberof module:element~ElectronicElement.prototype
      * @returns {string} type - The type of this element, i. e. 'electronic'
      */
     eeProto.getType = function() { return this._type; };
@@ -39,8 +44,9 @@ define(["utils"], function(utils) {
      *
      * @function
      * @name setInput
-     * @this module:element
-     * @arg {module:element} element - Another electronic element or child object of it
+     * @this module:element~ElectronicElement
+     * @memberof module:element~ElectronicElement.prototype
+     * @param {module:element} element - Another electronic element or child object of it
      * @returns this
      */
     eeProto.setInput = function(element) {
@@ -54,7 +60,8 @@ define(["utils"], function(utils) {
      * 
      * @function
      * @name getInput
-     * @this module:element
+     * @this module:element~ElectronicElement
+     * @memberof module:element~ElectronicElement.prototype
      * @returns {(module:element|null)} element - The element stored in input slot of this element.
      */
     eeProto.getInput = function() { return this._input; };
@@ -64,7 +71,8 @@ define(["utils"], function(utils) {
      *
      * @function
      * @name hasInput
-     * @this module:element
+     * @this module:element~ElectronicElement
+     * @memberof module:element~ElectronicElement.prototype
      * @returns {boolean} result - In case it is neither undefined nor null 'true', else 'false'
      */
     eeProto.hasInput = function() { return (typeof this._input !== "undefined") && (this._input !== null); };
@@ -74,8 +82,9 @@ define(["utils"], function(utils) {
      *
      * @function
      * @name setOutput
-     * @this module:element
-     * @arg {module:element} element - Another electronic element or child object of it
+     * @this module:element~ElectronicElement
+     * @memberof module:element~ElectronicElement.prototype
+     * @param {module:element} element - Another electronic element or child object of it
      * @returns this
      * @todo Figure out, why calling setInput inside of here caused a circular dependency
      */
@@ -90,7 +99,8 @@ define(["utils"], function(utils) {
      * 
      * @function
      * @name getOutput
-     * @this module:element
+     * @this module:element~ElectronicElement
+     * @memberof module:element~ElectronicElement.prototype
      * @returns {(module:element|null)} element - The element stored in output slot of this element.
      */
     eeProto.getOutput = function() { return this._output; };
@@ -100,7 +110,8 @@ define(["utils"], function(utils) {
      *
      * @function
      * @name hasOutput
-     * @this module:element
+     * @this module:element~ElectronicElement
+     * @memberof module:element~ElectronicElement.prototype
      * @returns {boolean} result - In case it is neither undefined nor null 'true', else 'false'
      */
     eeProto.hasOutput = function() { return (typeof this._output !== "undefined") && (this._output !== null); };

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: utils.js</title>
+    <title>JSDoc: Module: electronics/circuitElement</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,50 +17,141 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: utils.js</h1>
+    <h1 class="page-title">Module: electronics/circuitElement</h1>
 
     
 
 
 
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>define(function() {
-    "use strict";
-    /**
-     * Collect useful utilities here. Due to size limitations I had to stripped most of them.
-     *
-     * @module
-     */
-    var inherit;
 
-    /**
-     * Shorthand for inheriting from another constructor.
-     *
-     * @function
-     * @name inherit
-     * @param {constructor} Child - This constructor inherits
-     * @param {constructor} Parent - The constructor to inherit from
-     * @returns {constructor} Child - An augmented Child constructor
-     */
-    inherit = function(Child, Parent) {
-        var Proxy;
-        Proxy = function() {};  // Temporary constructor, created only once
-        return (function(Child, Parent) {
-            Proxy.prototype = Parent.prototype;
-            Child.prototype = new Proxy();  // Only inherit prototype methods
-            Child.superior = Parent.prototype;  // For access to the super class
-            Child.prototype.constructor = Child;  // For introspection purposes
-        })(Child, Parent);
-    };
-    return {
-        inherit: inherit
-    };
-});
-</code></pre>
-        </article>
-    </section>
+<section>
+
+<header>
+    
+        
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">This object represents an electronic circuit. It knows about its state and components.</div>
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="electronics_circuitElement.js.html">electronics/circuitElement.js</a>, <a href="electronics_circuitElement.js.html#line3">line 3</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+        <h3 class="subsection-title">Requires</h3>
+
+        <ul>
+            <li><a href="module-element.html">module:element</a></li>
+        
+            <li><a href="module-utils.html">module:utils</a></li>
+        </ul>
+    
+
+    
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="module-electronics_circuitElement-CircuitElement.html">CircuitElement</a></dt>
+            <dd></dd>
+        </dl>
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

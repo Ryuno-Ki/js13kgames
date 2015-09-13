@@ -53,6 +53,7 @@ module.exports = (grunt) ->
             doc:
                 src: [
                     'src/js/*.js'
+                    'src/js/electronics/*.js'
                 ]
                 dest: 'docs/'
                 options:

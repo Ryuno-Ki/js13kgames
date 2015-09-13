@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: utils</title>
+    <title>JSDoc: Class: SwitchElement</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: utils</h1>
+    <h1 class="page-title">Class: SwitchElement</h1>
 
     
 
@@ -28,8 +28,11 @@
 
 <header>
     
+        <h2>
+            <span class="ancestors"><a href="module-electronics_switchElement.html">electronics/switchElement</a>~</span>
         
-            
+        SwitchElement
+        </h2>
         
     
 </header>
@@ -38,13 +41,18 @@
     <div class="container-overview">
     
         
-            <div class="description">Collect useful utilities here. Due to size limitations I had to stripped most of them.</div>
-        
 
-        
-            
+    
+
+    <h4 class="name" id="SwitchElement"><span class="type-signature"></span>new SwitchElement<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
 
 
+
+<div class="description">
+    Constructs a switch
+</div>
 
 
 
@@ -87,7 +95,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line3">line 3</a>
+        <a href="electronics_switchElement.js.html">electronics/switchElement.js</a>, <a href="electronics_switchElement.js.html#line13">line 13</a>
     </li></ul></dd>
     
 
@@ -113,9 +121,19 @@
 
 
 
-        
     
     </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li>module.element~ElectronicElement</li>
+    </ul>
+
 
     
 
@@ -137,14 +155,14 @@
 
     
 
-    <h4 class="name" id="~inherit"><span class="type-signature">(inner) </span>inherit<span class="signature">(Child, Parent)</span><span class="type-signature"> &rarr; {constructor}</span></h4>
+    <h4 class="name" id="isClosed"><span class="type-signature"></span>isClosed<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
 
     
 
 
 
 <div class="description">
-    Shorthand for inheriting from another constructor.
+    Reports about whether the switch is closed or open.
 </div>
 
 
@@ -152,6 +170,116 @@
 
 
 
+
+    <h5>This:</h5>
+    <ul><li>module:electronics/switchElement~SwitchElement.prototype</li></ul>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="electronics_switchElement.js.html">electronics/switchElement.js</a>, <a href="electronics_switchElement.js.html#line40">line 40</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    result - If switch is closed 'true', otherwise 'false'.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="render"><span class="type-signature"></span>render<span class="signature">(config)</span><span class="type-signature"> &rarr; {HTMLUnknownElement}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Renders a G node to append to SVG.
+</div>
+
+
+
+
+
+
+
+    <h5>This:</h5>
+    <ul><li>module:electronics/switchElement~SwitchElement.prototype</li></ul>
 
 
 
@@ -180,13 +308,13 @@
 
         <tr>
             
-                <td class="name"><code>Child</code></td>
+                <td class="name"><code>config</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">constructor</span>
+<span class="param-type">object</span>
 
 
             
@@ -196,30 +324,7 @@
 
             
 
-            <td class="description last">This constructor inherits</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>Parent</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">constructor</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The constructor to inherit from</td>
+            <td class="description last">Holds the bounding box wherein to render.</td>
         </tr>
 
     
@@ -260,7 +365,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils.js.html">utils.js</a>, <a href="utils.js.html#line10">line 10</a>
+        <a href="electronics_switchElement.js.html">electronics/switchElement.js</a>, <a href="electronics_switchElement.js.html#line61">line 61</a>
     </li></ul></dd>
     
 
@@ -287,7 +392,7 @@
 
         
 <div class="param-desc">
-    Child - An augmented Child constructor
+    g - The group node holding the SVG elements of this object.
 </div>
 
 
@@ -298,13 +403,98 @@
     </dt>
     <dd>
         
-<span class="param-type">constructor</span>
+<span class="param-type">HTMLUnknownElement</span>
 
 
     </dd>
 </dl>
 
     
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="useSwitch"><span class="type-signature"></span>useSwitch<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Toggle the switch.
+</div>
+
+
+
+
+
+
+
+    <h5>This:</h5>
+    <ul><li>module:electronics/switchElement~SwitchElement.prototype</li></ul>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="electronics_switchElement.js.html">electronics/switchElement.js</a>, <a href="electronics_switchElement.js.html#line51">line 51</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
