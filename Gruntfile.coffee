@@ -56,7 +56,7 @@ module.exports = (grunt) ->
                 ]
                 dest: 'docs/'
                 options:
-                    readme: 'docs/README.md'
+                    readme: 'README.md'
 
         jshint:
             beforeconcat: [
