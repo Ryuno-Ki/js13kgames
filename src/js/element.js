@@ -1,4 +1,4 @@
-define(["app/utils", "app/errors"], function(utils, errors) {
+define(["utils"], function(utils) {
     "use strict";
     var ElectronicElement,
         eeProto;
@@ -19,42 +19,27 @@ define(["app/utils", "app/errors"], function(utils, errors) {
         ElectronicElement.count += 1;
         that._name = name + '-' + ElectronicElement.count;
         that._type = 'electronic';
-
-        // feature is truly private here
-        // Doesn't work with Arrays and Objects (passed by reference!)
-        feature = 'sizzles';
-        that.getFeature = function() {
-            return feature;
-        };
     };
     // Static methods
     ElectronicElement.count = 0;
     // Instance methods
     eeProto = ElectronicElement.prototype;
-    eeProto.getName = function() {
-        return this._name;
-    };
-    eeProto.getType = function() {
-        return this._type;
-    };
+    eeProto.getName = function() { return this._name; };
+    eeProto.getType = function() { return this._type; };
     eeProto.setInput = function(element) {
-        if (!(element instanceof ElectronicElement)) {
-            console.log("element:", element, element.constructor);
-            console.log("proto:", element.prototype);
-            throw errors.ElectronicElementError;
-        }
-
-        this._input = element;
+        this._input = element || null;
         // Using element.setOutput() yields an infinite loop
         element._output = this;
     };
-    eeProto.getInput = function() {
-        return this._input;
+    eeProto.getInput = function() { return this._input; };
+    eeProto.hasInput = function() { return (typeof this._input !== "undefined") && (this._input !== null); };
+    eeProto.setOutput = function(element) {
+        this._output = element || null;
+        // Using element.setInput() yields an infinite loop
+        element._input = this;
     };
-    eeProto.hasInput = function() {
-        return (typeof this._input !== "undefined") && (this._input !== null);
-    };
-
+    eeProto.getOutput = function() { return this._output; };
+    eeProto.hasOutput = function() { return (typeof this._output !== "undefined") && (this._output !== null); };
     return {
         ElectronicElement: ElectronicElement,
     };

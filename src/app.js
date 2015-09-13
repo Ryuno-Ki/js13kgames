@@ -1,8 +1,5 @@
 requirejs.config({
-    baseUrl: 'build',
-    paths: {
-        app: './app'
-    }
+    baseUrl: 'app',
 });
 
-requirejs(['app/main']);
+requirejs(['main']);

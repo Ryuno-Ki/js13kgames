@@ -13,9 +13,13 @@ module.exports = (grunt) ->
                 files: [{
                     expand: true
                     src: [
-                        'index.html'
+                        'build/index.html'
+                        'build/manifest.webapp'
                         'build/*.css'
                         'build/*.js'
+                        'build/app/*.js'
+                        'build/app/electronics/*.js'
+                        'build/img/*.png'
                     ]
                     dest: '/'
                 }]
@@ -31,12 +35,20 @@ module.exports = (grunt) ->
 
         cssmin:
             options:
-                sourceMap: true
+                sourceMap: false
             build:
                 files:
-                    'build/<%= pkg.name %>.min.css': [
-                        'src/css/*.css'
+                    'build/app.min.css': [
+                        'src/css/<%= pkg.name %>.css'
                     ]
+
+        htmlmin:
+            build:
+                options:
+                    removeComments: true
+                    collapseWhitespace: true
+                files:
+                    'build/index.html': 'index.html'
 
         jsdoc:
             doc:
@@ -89,7 +101,7 @@ module.exports = (grunt) ->
                     preserveComments: false
                     reserveDOMProperties: true
                     screwIE8: true
-                    sourceMap: true
+                    sourceMap: false
                 files:
                     'build/app.min.js': [ 'src/app.js' ]
                     'build/app/element.js': [ 'src/js/element.js' ]
@@ -97,13 +109,9 @@ module.exports = (grunt) ->
                     'build/app/electronics/powerSourceElement.js': [ 'src/js/electronics/powerSourceElement.js' ]
                     'build/app/electronics/switchElement.js': [ 'src/js/electronics/switchElement.js' ]
                     'build/app/electronics/circuitElement.js': [ 'src/js/electronics/circuitElement.js' ]
-                    'build/app/errors.js': [ 'src/js/errors.js' ]
                     'build/app/main.js': [ 'src/js/main.js' ]
                     'build/app/svg.js': [ 'src/js/svg.js' ]
                     'build/app/utils.js': [ 'src/js/utils.js' ]
-                    #'src/js/pubsub.js'
-                    #'src/js/modules.js'
-                    #'src/js/main.js'
 
         watch:
             scripts:
@@ -129,6 +137,7 @@ module.exports = (grunt) ->
     # Load the plugins
     grunt.loadNpmTasks 'grunt-contrib-compress'
     grunt.loadNpmTasks 'grunt-contrib-cssmin'
+    grunt.loadNpmTasks 'grunt-contrib-htmlmin'
     grunt.loadNpmTasks 'grunt-contrib-jshint'
     grunt.loadNpmTasks 'grunt-contrib-uglify'
     grunt.loadNpmTasks 'grunt-contrib-watch'
@@ -142,6 +151,7 @@ module.exports = (grunt) ->
 
     # Default task(s).
     grunt.registerTask 'default', [
+        'htmlmin'
         'cssmin'
         'uglify'
         'compress'
