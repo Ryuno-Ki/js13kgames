@@ -15,6 +15,7 @@ module.exports = (grunt) ->
                     src: [
                         'index.html'
                         'game.appcache'
+                        'build/require.min.js'
                         'build/app.min.css'
                         'build/app.min.js'
                         'build/app/*.js'
