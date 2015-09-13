@@ -1,9 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" manifest="game.appcache">
+<html lang="en" dir="ltr" manifest="ame.appcache">
     <head>
         <meta charset="utf-8" />
         <title>Breaker-Panel for js13kgames competition</title>
+        <!-- build:css inline -->
         <link rel="stylesheet" href="build/app.min.css" />
+        <!-- /build -->
+        <script><!-- build:js inline build/require.min.js --><!-- /build --></script>
+        <script><!-- build:js inline build/app.min.js --><!-- /build --></script>
+        <script><!-- build:js inline build/app/main.js --><!-- /build --></script>
+        <script><!-- build:js inline build/app/element.js --><!-- /build --></script>
+        <script><!-- build:js inline build/app/svg.js --><!-- /build --></script>
+        <script><!-- build:js inline build/app/electronics/powerSourceElement.js --><!-- /build --></script>
+        <script><!-- build:js inline build/app/electronics/switchElement.js --><!-- /build --></script>
+        <script><!-- build:js inline build/app/electronics/consumerElement.js --><!-- /build --></script>
+        <script><!-- build:js inline build/app/electronics/circuitElement.js --><!-- /build --></script>
+        <script><!-- build:js inline build/app/utils.js --><!-- /build --></script>
     </head>
     <body>
         <div id="wrap">
@@ -64,6 +76,8 @@
                 </p>
             </footer>
         </div>
+        <!-- build:remove -->
         <script data-main="build/app.min.js" src="build/require.min.js"></script>
+        <!-- /build -->
     </body>
 </html>

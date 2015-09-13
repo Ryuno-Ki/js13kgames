@@ -1,4 +1,4 @@
-define(function() {
+define("errors", [], function() {
     "use strict";
     var ConsumerElementError, ElectronicElementError, PowerSourceElementError;
     /**

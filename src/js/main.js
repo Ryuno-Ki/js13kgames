@@ -1,9 +1,10 @@
-define(["element",
+define("main",
+       ["element",
         "svg",
-        "electronics/powerSourceElement",
-        "electronics/switchElement",
-        "electronics/consumerElement",
-        "electronics/circuitElement"],
+        "powerSourceElement",
+        "switchElement",
+        "consumerElement",
+        "circuitElement"],
        function(element, svg, powerSourceElement, switchElement, consumerElement, circuitElement) {
            "use strict";
           /**

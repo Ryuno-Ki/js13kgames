@@ -1,4 +1,4 @@
-define(["utils"], function(utils) {
+define("element", ["utils"], function(utils) {
     "use strict";
     /**
      * The basic electronic element blueprint used for inheritance by more specific ones.

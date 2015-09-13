@@ -1,4 +1,4 @@
-define(function() {
+define("svg", [], function() {
     "use strict";
     /**
      * Deals with manipulating SVG used to display the electronic elements.

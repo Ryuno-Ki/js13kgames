@@ -23,6 +23,17 @@ module.exports = (grunt) ->
                     ]
                     dest: '/'
                 }]
+            file:
+                options:
+                    archive: 'dist/offline-game.zip'
+                files: [{
+                    expand: true
+                    src: [
+                        'index.html'
+                        'game.appcache'
+                        'build/app.min.css'
+                    ]
+                }]
 
         csscomb:
             sort:
@@ -91,7 +102,7 @@ module.exports = (grunt) ->
                     variable: '42'
             dist:
                 files:
-                    'target.html': 'src.html'
+                    'target.html': 'game.html'
 
         uglify:
             build:

@@ -1,4 +1,4 @@
-define(["element", "utils"], function(electronicElement, utils) {
+define("circuitElement", ["element", "utils"], function(electronicElement, utils) {
     "use strict";
     /**
      * This object represents an electronic circuit. It knows about its state and components.
