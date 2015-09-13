@@ -1,6 +1,6 @@
 {
   "name": "js13k-breaker-panel",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "Logic game around a breaker panel utilizing K-Maps for js13kgames competition 2015.",
   "main": "index.js",
   "scripts": {

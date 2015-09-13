@@ -13,11 +13,10 @@ module.exports = (grunt) ->
                 files: [{
                     expand: true
                     src: [
-                        'build/index.html'
-                        'build/manifest.webapp'
-                        'build/game.appcache'
-                        'build/*.css'
-                        'build/*.js'
+                        'index.html'
+                        'game.appcache'
+                        'build/app.min.css'
+                        'build/app.min.js'
                         'build/app/*.js'
                         'build/app/electronics/*.js'
                     ]
@@ -48,7 +47,7 @@ module.exports = (grunt) ->
                     removeComments: true
                     collapseWhitespace: true
                 files:
-                    'build/index.html': 'index.html'
+                    'index.html': 'game.html'
 
         jsdoc:
             doc:
