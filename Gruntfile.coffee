@@ -15,11 +15,11 @@ module.exports = (grunt) ->
                     src: [
                         'build/index.html'
                         'build/manifest.webapp'
+                        'build/game.appcache'
                         'build/*.css'
                         'build/*.js'
                         'build/app/*.js'
                         'build/app/electronics/*.js'
-                        'build/img/*.png'
                     ]
                     dest: '/'
                 }]
@@ -95,8 +95,6 @@ module.exports = (grunt) ->
         uglify:
             build:
                 options:
-                    banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +\
-                        '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
                     mangleProperties: false
                     preserveComments: false
                     reserveDOMProperties: true

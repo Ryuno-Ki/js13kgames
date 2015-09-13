@@ -2,11 +2,10 @@ define(["element", "utils"], function(electronicElement, utils) {
     "use strict";
     var PowerSourceElement;
 
-    PowerSourceElement = function(name) {
+    PowerSourceElement = function() {
         var that;
         PowerSourceElement.count += 1;
         that = this;
-        that._name = name + '-' + PowerSourceElement.count;
         that._type = 'power-source';
         that._output = null;
         that._tile = null;

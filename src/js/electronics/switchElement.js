@@ -3,14 +3,13 @@ define(["element", "utils"], function(electronicElement, utils) {
     var SwitchElement,
         seProto;
 
-    SwitchElement = function(name) {
+    SwitchElement = function() {
         // Private members
         var that;
         SwitchElement.count += 1;
         that = this;
-        that._name = name + '-' + SwitchElement.count;
         that._type = 'switch';
-        that._closed = true;
+        that._closed = false;
         that._input = null;
         that._output = null;
         that._tile = null;
@@ -44,6 +43,7 @@ define(["element", "utils"], function(electronicElement, utils) {
         pier2Origin = pier1Origin + bridgeLength + pierRadius;
 
         g = doc.createElement('g');
+        g.setAttribute("class", "switch");
 
         /*
         inbound = doc.createElement('path');

@@ -3,33 +3,21 @@ define(["element", "utils"], function(electronicElement, utils) {
     var CircuitElement,
         ceProto;
 
-    CircuitElement = function(name) {
+    CircuitElement = function() {
         var that;
-        // Ensure being called with `new`
-        if (!(this instanceof CircuitElement)) {
-            return new CircuitElement(name);
-        }
         that = this;
-        that.name = "CircuitElement";
         that._input = null;
         that._type = 'circuit';
-        that._elements = [];
+        that._parts = [];
     };
     utils.inherit(CircuitElement, electronicElement.ElectronicElement);
     ceProto = CircuitElement.prototype;
-    ceProto.hasSource = function(type) {
-        return this._elements.map(function(el) { return el.getType(); }).indexOf(type) !== -1;
-    };
-    ceProto.add = function(element) { this._elements.push(element); return this; }
-    ceProto.isCircuitClosed = function() {
-        var that, closedElements;
-
-        that = this;
-        if (!(that.has("power-source") && that.has("consumer") && that.has("switch"))) { return false; }
-
+    ceProto.add = function(element) { this._parts.push(element); return this; };
+    ceProto.isClosed = function() {
+        var closedElements;
         // Map ElectronicElement instances to Array of booleans according to their isClosed
-        closedElements = (function() {
-            return  this._elements.map(function(el) {
+        return (function(context) {
+            return  context._parts.map(function(el) {
                 var result, type;
                 result = false;
                 type = el.getType();
@@ -38,19 +26,13 @@ define(["element", "utils"], function(electronicElement, utils) {
                     return el.hasOutput() && (el.getOutput() !== null);
                 } else {
                     result = el.hasInput() && (el.getInput() !== null);
-                    if (type === "electronic" || type === "switch") {
-                        result = result && el.hasOutput() && (el.getOutput() !== null);
-                        if (type === "switch") {
-                            result = result && el.isClosed();
-                        }
+                    if (type === "switch") {
+                        result = result && el.hasOutput() && (el.getOutput() !== null) && el.isClosed();
                     }
                 }
                 return result;
             });
-        })();
-    
-        // Concat every isClosed() return value
-        return closedElements.reduce(function(current, former) {
+        }(this)).reduce(function(current, former) {
             return current && former;
         });
     };

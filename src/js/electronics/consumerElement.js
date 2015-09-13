@@ -3,11 +3,10 @@ define(["element", "utils"], function(electronicElement, utils) {
     var ConsumerElement,
         ceProto;
 
-    ConsumerElement = function(name) {
+    ConsumerElement = function() {
         var that;
         ConsumerElement.count += 1;
         that = this;
-        that._name = name + '-' + ConsumerElement.count;
         that._type = 'consumer';
         that._input = null;
         that._tile = null;

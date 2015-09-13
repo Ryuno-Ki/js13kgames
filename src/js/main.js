@@ -6,7 +6,7 @@ define(["element",
         "electronics/circuitElement"],
        function(element, svg, powerSourceElement, switchElement, consumerElement, circuitElement) {
            "use strict";
-           var game, grid, getRandomTile, tile, element, elements, usedTiles;
+           var game, grid, getRandomTile, tile, el, elements, usedTiles, animatePathes;
            var explanations, explanation, explanationSvg, i, len, circuit;
 
            game = document.getElementById("game");
@@ -27,29 +27,25 @@ define(["element",
                [  0,  50,  25, 75], [ 25, 50, 50, 75], [ 50, 50, 75, 75], [ 75, 50,100, 75],
                [  0,  75,  25,100], [ 25, 75, 50,100], [ 50, 75, 75,100], [ 75, 75,100,100]
            ];
-           getRandomTile = function(grid) {
-               var rows;
-               rows = grid.length;
-               return grid[Math.floor(rows * Math.random(rows))];
-           };
+           getRandomTile = function(grid) { return grid[Math.floor(grid.length * Math.random(grid.length))]; };
            usedTiles = [];
 
            elements = {
                PowerSourceElement: new powerSourceElement.PowerSourceElement(),
                SwitchElement: new switchElement.SwitchElement(),
                ConsumerElement: new consumerElement.ConsumerElement(),
-           }
-           circuit = new circuitElement.CircuitElement(),
-           elements.SwitchElement.setInput(elements.PowerSourceElement);
-           circuit.add(elements.PowerSourceElement).add(elements.SwitchElement).add(elements.ConsumerElement);
+           };
+           circuit = new circuitElement.CircuitElement();
+           elements.SwitchElement.setInput(elements.PowerSourceElement).setOutput(elements.ConsumerElement);
 
-           for (element in elements) {
-               if (elements.hasOwnProperty(element)) {
+           for (el in elements) {
+               if (elements.hasOwnProperty(el)) {
                    do {
                        tile = getRandomTile(grid);
                    } while (usedTiles.indexOf(tile + '') !== -1);
                    usedTiles.push(tile + '');
-                   svg.el.appendChild(svg.render(elements[element], {bb: tile}));
+                   circuit.add(elements[el]);
+                   svg.el.appendChild(svg.render(elements[el], {bb: tile}));
                }
            }
            svg.el.appendChild(svg.tie({
@@ -61,6 +57,29 @@ define(["element",
                to: elements.ConsumerElement,
            }));
            game.appendChild(svg.el);
+
+           animatePathes = function() {
+               var pathes, path, i, len;
+               pathes = document.getElementsByTagName("path");
+               for (i = 0, len = pathes.length; i < len; i += 1) {
+                   path = pathes[i];
+                   if (circuit.isClosed()) {
+                       path.setAttribute("class", "live");
+                   } else {
+                       path.setAttribute("class", "");
+                   }
+               }
+           };
+           game.addEventListener('click', function(event) {
+               var group;
+               group = event.target.parentElement;
+               try {
+                   if (group.nodeName === "g" && group.getAttribute("class") === "switch") {
+                       elements.SwitchElement.useSwitch();
+                   }
+               } catch (e) {}
+               animatePathes();
+           });
            svg.el.outerHTML = svg.el.outerHTML;  // Enforce repaint
 
            explanations = document.getElementsByClassName("explanation");
