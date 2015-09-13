@@ -52,11 +52,11 @@ define(["element",
                    svg.el.appendChild(svg.render(elements[element], {bb: tile}));
                }
            }
-           svg.el.appendChild(svg.renderCable({
+           svg.el.appendChild(svg.tie({
                from: elements.PowerSourceElement,
                to: elements.SwitchElement,
            }));
-           svg.el.appendChild(svg.renderCable({
+           svg.el.appendChild(svg.tie({
                from: elements.SwitchElement,
                to: elements.ConsumerElement,
            }));
@@ -67,7 +67,8 @@ define(["element",
            for (i = 0, len = explanations.length; i < len; i += 1) {
                explanation = explanations[i];
                explanationSvg = explanation.firstElementChild;
-               explanationSvg.appendChild(svg.render(elements[explanation.dataset.electronic + "Element"], {bb: [0, 0, 25, 25]}));
+               explanationSvg.appendChild(svg.render(elements[explanation.dataset.electronic + "Element"],
+                                                     {bb: [0, 0, 25, 25]}));
                explanationSvg.outerHTML = explanationSvg.outerHTML;  // Enforce repaint
            }
           return {};

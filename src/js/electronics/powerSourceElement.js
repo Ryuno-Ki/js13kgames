@@ -13,11 +13,10 @@ define(["element", "utils"], function(electronicElement, utils) {
     };
     utils.inherit(PowerSourceElement, electronicElement.ElectronicElement);
     PowerSourceElement.count = 0;
-    PowerSourceElement.prototype.renderSelf = function(config) {
+    PowerSourceElement.prototype.render= function(config) {
         var g, pse, height, width, leftBorderCenter, strokeHeight, origin, longBar, shortBars, exit;
 
         config = config || {};
-        config.id = config.id || "power-source";
         this._tile = config.bb.slice();
         height = this._tile[3] - this._tile[1];
         width = this._tile[2] - this._tile[0];
@@ -28,14 +27,12 @@ define(["element", "utils"], function(electronicElement, utils) {
         shortBars = 'v' + (0.4 * height) + 'm0 ' + (0.1 * height) + 'v' + (0.4 * height);
 
         g = document.createElement('g');
-        g.setAttribute("id", config.id);
 
         pse = document.createElement('path');
         pse.setAttribute('d', 'm' + origin + longBar + 'm' + (0.25 * width) + ' ' + (-strokeHeight) + shortBars);
         g.appendChild(pse);
 
         exit = document.createElement('path');
-        exit.setAttribute("class", "live");
         exit.setAttribute("d", "M0 0m" + (this._tile[0] + 0.5 * width) + ' ' + (0.5 * height) + "h" + (0.5 * width));
         g.appendChild(exit);
         return g;

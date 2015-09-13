@@ -13,11 +13,10 @@ define(["element", "utils"], function(electronicElement, utils) {
         that._tile = null;
     };
     utils.inherit(ConsumerElement, electronicElement.ElectronicElement);
-    ConsumerElement.prototype.renderSelf = function(config) {
+    ConsumerElement.prototype.render = function(config) {
         var g, prop, props, height, width, leftBorderCenter, origin, inbound, inboundLength, lamp, lampRadius, lampCross;
     
             config = config || {};
-            config.id = config.id || "consumer";
             this._tile = config.bb.slice();
             height = config.bb[3] - config.bb[1];
             width = config.bb[2] - config.bb[0];
@@ -28,10 +27,8 @@ define(["element", "utils"], function(electronicElement, utils) {
             lampRadius = 0.3 * width;
     
             g = document.createElement('g');
-            g.setAttribute("id", config.id);
     
             inbound = document.createElement('path');
-            inbound.setAttribute("class", "live");
             inbound.setAttribute('d', 'm' + config.bb[0] + ' ' + leftBorderCenter + 'h' + inboundLength);
             g.appendChild(inbound);
     
@@ -49,7 +46,10 @@ define(["element", "utils"], function(electronicElement, utils) {
             g.appendChild(lamp);
     
             lampCross = document.createElement('path');
-            lampCross.setAttribute("d", "m" + (config.bb[0] + (lampRadius / 2)) + " " + leftBorderCenter + "l" + (2 * lampRadius) + " 0");
+            lampCross.setAttribute("d", "m" + (config.bb[0] + inboundLength + (lampRadius / 3)) + " " + (config.bb[1] + height / 3) + " l " + (6 * lampRadius / 4) + " " + (4 * lampRadius / 3));
+            g.appendChild(lampCross);
+            lampCross = document.createElement('path');
+            lampCross.setAttribute("d", "m" + (config.bb[0] + inboundLength + (+ 1 * lampRadius / 3)) + " " + (config.bb[1] + height / 3 + (4 * lampRadius / 3)) + "l " + (3 * lampRadius / 2) + " " + (-4 * lampRadius / 3));
             g.appendChild(lampCross);
             return g;
     };

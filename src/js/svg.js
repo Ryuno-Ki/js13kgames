@@ -1,7 +1,7 @@
 define(function() {
     "use strict";
     var svgProperties, prop;
-    var el,/* dnd,*/ render, renderCable;
+    var el, render, tie;
 
     el = document.createElement("svg");
     svgProperties = {
@@ -16,14 +16,11 @@ define(function() {
             el.setAttribute(prop, svgProperties[prop]);
         }
     }
-    render = function(element, config) {
-        return element.renderSelf(config);
-    };
-    renderCable = function(config) {
+    render = function(element, config) { return element.render(config); };
+    tie = function(config) {
         var g, inbound, outbound, origin, exit, controlPoint1, controlPoint2, slope, center, wire;
 
         config = config || {};
-        config.id = config.id || "cable";
         inbound = [config.from._tile[2], config.from._tile[1] + (config.from._tile[3] - config.from._tile[1]) / 2];
         outbound = [config.to._tile[0], config.to._tile[1] + (config.to._tile[3] - config.to._tile[1]) / 2];
         origin = inbound[0] + ' ' + inbound[1];
@@ -32,10 +29,8 @@ define(function() {
         controlPoint2 = outbound[0] + ' ' + outbound[1];
 
         g = document.createElement('g');
-        g.setAttribute("id", config.id);
 
         wire = document.createElement('path');
-        wire.setAttribute("class", "live");
         wire.setAttribute("d", "M" + origin + "C" + controlPoint1 + " " + controlPoint2 + " " + exit);
         g.appendChild(wire);
         return g;
@@ -43,6 +38,6 @@ define(function() {
     return {
         el: el,
         render: render,
-        renderCable: renderCable,
+        tie: tie,
     };
 });

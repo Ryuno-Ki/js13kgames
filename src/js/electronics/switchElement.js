@@ -19,14 +19,14 @@ define(["element", "utils"], function(electronicElement, utils) {
     seProto = SwitchElement.prototype;
     seProto.isClosed = function() { return this._closed; };
     seProto.useSwitch = function() { this._closed = !this._closed; };
-    seProto.renderSelf = function(config) {
-        var g, height, width, leftBorderCenter, origin, prop, props;
+    seProto.render = function(config) {
+        var g, doc, height, width, leftBorderCenter, origin, prop, props;
         var inbound, inboundLength, outbound, outboundLength;
         var pierRadius, pier1Origin, pier1, pier2Origin, pier2;
         var bridge, bridgeOrigin, bridgeLength;
 
+        doc = document;
         config = config || {};
-        config.id = config.id || "switch";
         this._tile = config.bb.slice();
         height = this._tile[3] - this._tile[1];
         width = this._tile[2] - this._tile[0];
@@ -43,17 +43,16 @@ define(["element", "utils"], function(electronicElement, utils) {
         bridgeLength = 0.6 * width;
         pier2Origin = pier1Origin + bridgeLength + pierRadius;
 
-        g = document.createElement('g');
-        g.setAttribute("id", config.id);
+        g = doc.createElement('g');
 
         /*
-        inbound = document.createElement('path');
+        inbound = doc.createElement('path');
         inbound.setAttribute("class", "live");
         inbound.setAttribute("d", "M0 0m" + origin + "h" + inboundLength);
         g.appendChild(inbound);
         */
 
-        pier1 = document.createElement('circle');
+        pier1 = doc.createElement('circle');
         props = {
             "r": pierRadius + "",
             "cx": config.bb[0] + inboundLength + pierRadius + "",
@@ -64,12 +63,11 @@ define(["element", "utils"], function(electronicElement, utils) {
         }
         g.appendChild(pier1);
 
-        bridge = document.createElement('path');
-        bridge.setAttribute("class", "live");
+        bridge = doc.createElement('path');
         bridge.setAttribute("d", "m" + bridgeOrigin + "l" + bridgeLength + " " + (-pierRadius));
         g.appendChild(bridge);
 
-        pier2 = document.createElement('circle');
+        pier2 = doc.createElement('circle');
         props.cx = config.bb[0] + inboundLength + 4 * pierRadius + bridgeLength + "";
         for (prop in props) {
             if (props.hasOwnProperty(prop)) {
@@ -78,8 +76,7 @@ define(["element", "utils"], function(electronicElement, utils) {
         }
         g.appendChild(pier2);
 
-        outbound = document.createElement("path");
-        outbound.setAttribute("class", "live");
+        outbound = doc.createElement("path");
         outbound.setAttribute("d", "m" + pier2Origin  + " " + leftBorderCenter + "h" + outboundLength);
         g.appendChild(outbound);
         return g;
