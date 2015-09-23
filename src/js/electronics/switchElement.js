@@ -1,4 +1,4 @@
-define("switchElement", ["element", "utils"], function(electronicElement, utils) {
+define(["element", "utils"], function(electronicElement, utils) {
     "use strict";
     /**
      * Represents a switch in the circuit.

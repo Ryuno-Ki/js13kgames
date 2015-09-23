@@ -1,4 +1,4 @@
-define("consumerElement", ["element", "utils"], function(electronicElement, utils) {
+define(["element", "utils"], function(electronicElement, utils) {
     "use strict";
     /**
      * This objects represents a consumer of the circuit, for example, a lamp.

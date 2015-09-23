@@ -1,4 +1,4 @@
-define("utils", [], function() {
+define(function() {
     "use strict";
     /**
      * Collect useful utilities here. Due to size limitations I had to stripped most of them.

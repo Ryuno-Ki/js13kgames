@@ -1,4 +1,4 @@
-define("powerSourceElement", ["element", "utils"], function(electronicElement, utils) {
+define(["element", "utils"], function(electronicElement, utils) {
     "use strict";
     /**
      * Represents a power source in the circuit. Electricity is implicitly directed back to it.
