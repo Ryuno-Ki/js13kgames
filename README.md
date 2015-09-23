@@ -4,7 +4,7 @@ This is [my attempt](https://ryuno-ki.github.io/js13kgames/) to take part at [js
 
 In order to comply with the file size limit of 13k bytes, I am writing in plain ECMAScript 5.
 
-For automation purposes I'm using good old `grunt.
+For automation purposes I'm using good old `grunt`.
 
 ## Test suite
 
