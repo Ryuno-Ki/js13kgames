@@ -46,7 +46,7 @@ module.exports = (grunt) ->
 
         cssmin:
             options:
-                sourceMap: false
+                sourceMap: true
             build:
                 files:
                     'build/app.min.css': [
@@ -111,7 +111,7 @@ module.exports = (grunt) ->
                     preserveComments: false
                     reserveDOMProperties: true
                     screwIE8: true
-                    sourceMap: false
+                    sourceMap: true
                 files:
                     'build/app.min.js': [ 'src/app.js' ]
                     'build/app/element.js': [ 'src/js/element.js' ]
