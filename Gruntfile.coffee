@@ -55,20 +55,20 @@ module.exports = (grunt) ->
 
         'gh-pages':
             options:
-                base: 'build'
+                base: '.'
             src: [
                 'index.html'
-                'app.min.css'
-                'app.min.js'
-                'require.min.js'
-                'app/element.js'
-                'app/main.js'
-                'app/svg.js'
-                'app/utils.js'
-                'app/electronics/circuitElement.js'
-                'app/electronics/consumerElement.js'
-                'app/electronics/powerSourceElement.js'
-                'app/electronics/switchElement.js'
+                'build/app.min.css'
+                'build/app.min.js'
+                'build/require.min.js'
+                'build/app/element.js'
+                'build/app/main.js'
+                'build/app/svg.js'
+                'build/app/utils.js'
+                'build/app/electronics/circuitElement.js'
+                'build/app/electronics/consumerElement.js'
+                'build/app/electronics/powerSourceElement.js'
+                'build/app/electronics/switchElement.js'
             ]
 
         htmlmin:
