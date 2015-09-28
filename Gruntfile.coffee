@@ -53,6 +53,24 @@ module.exports = (grunt) ->
                         'src/css/<%= pkg.name %>.css'
                     ]
 
+        'gh-pages':
+            options:
+                base: 'build'
+            src: [
+                'index.html'
+                'app.min.css'
+                'app.min.js'
+                'require.min.js'
+                'app/element.js'
+                'app/main.js'
+                'app/svg.js'
+                'app/utils.js'
+                'app/electronics/circuitElement.js'
+                'app/electronics/consumerElement.js'
+                'app/electronics/powerSourceElement.js'
+                'app/electronics/switchElement.js'
+            ]
+
         htmlmin:
             build:
                 options:
@@ -133,8 +151,9 @@ module.exports = (grunt) ->
                     'cssmin'
                     'uglify'
                     'jshint'
+                    'gh-pages'
                     # 'mocha-chai-sinon'
-                    'maxFilesize'
+                    # 'maxFilesize'
                 ]
             test:
                 files: [
@@ -153,6 +172,7 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-contrib-watch'
     grunt.loadNpmTasks 'grunt-csscomb'
     grunt.loadNpmTasks 'grunt-fxos'
+    grunt.loadNpmTasks 'grunt-gh-pages'
     grunt.loadNpmTasks 'grunt-jsdoc'
     grunt.loadNpmTasks 'grunt-max-filesize'
     grunt.loadNpmTasks 'grunt-mocha-chai-sinon'
@@ -165,7 +185,7 @@ module.exports = (grunt) ->
         'cssmin'
         'uglify'
         'compress'
-        'maxFilesize'
+        'gh-pages'
         'watch'
     ]
     # grunt.registerTask 'test', ['mocha-chai-sinon']

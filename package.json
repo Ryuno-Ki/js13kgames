@@ -31,6 +31,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-csscomb": "^1.2.0",
     "grunt-fxos": "^0.1.2",
+    "grunt-gh-pages": "^0.10.0",
     "grunt-jsdoc": "^0.6.8",
     "grunt-max-filesize": "^0.1.0",
     "grunt-mocha": "^0.4.13",
